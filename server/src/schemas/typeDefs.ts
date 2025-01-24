@@ -17,8 +17,8 @@ const typeDefs = `
   }
 
   input SnippetInput {
-    thoughtText: String!
-    thoughtAuthor: String!
+    text: String!
+    author: String!
   }
 
   input UserInput {
