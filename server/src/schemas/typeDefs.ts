@@ -36,15 +36,15 @@ const typeDefs = `
     users: [User]
     user(username: String!): User
     snippets: [Snippet]!
-    Snippet(SnippetId: ID!): Snippet
+    snippet(snippetId: ID!): Snippet
     me: User
   }
 
   type Mutation {
     addUser(input: UserInput!): Auth
     login(email: String!, password: String!): Auth
-    addSnippet(input: SnippetInput!): Thought
-    removeSnippet(snippetId: ID!): Thought
+    addSnippet(input: SnippetInput!): Snippet
+    removeSnippet(snippetId: ID!): Snippet
   }
 `;
 

@@ -7,9 +7,15 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "watch": "nodemon dist/server.js",
+    "watch": "nodemon",
     "seed": "node dist/seeds/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig":{
+    "exec":"npm run build && npm start",
+    "watch":["src/**/*"],
+    "ignore":["dist/"],
+    "ext": "ts, json"
   },
   "keywords": [],
   "author": "",
