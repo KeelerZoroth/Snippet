@@ -2,7 +2,6 @@
 
 /* This code will be changed in the future */
 
-import { type Request, type Response } from 'express';
 import { OpenAI } from '@langchain/openai';
 import { PromptTemplate } from '@langchain/core/prompts';
 import { StructuredOutputParser } from 'langchain/output_parsers';
@@ -65,23 +64,22 @@ const parseResponse = async (response: string): Promise<{ [key: string]: string 
 };
 
 // Handle the POST request to ask a question
-export const explainCode = async (req: Request, res: Response): Promise<void> => {
-  const userCode: string = req.body.question;
+export const explainCode = async (userCode: string): Promise<any> => {
+  // const userCode: string = req.body.question;
 
   try {
     if (!userCode) {
-      res.status(400).json({ question: null, response: 'Please provide code in the request body.', formattedResponse: null });
-      return;
+      return { question: null, response: 'Please provide code in the request body.', formattedResponse: null };
     }
 
     const formattedPrompt: string = await formatPrompt(userCode);
     const rawResponse: string = await promptFunc(formattedPrompt);
     const result: { [key: string]: string } = await parseResponse(rawResponse);
-    res.json({ question: userCode, prompt: formattedPrompt, response: rawResponse, formattedResponse: result });
+    return { code: userCode, prompt: formattedPrompt, response: rawResponse, formattedResponse: result };
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error('Error:', error.message);
     }
-    res.status(500).json({ code: userCode, prompt: null, response: 'Internal Server Error', formattedResponse: null });
+    return { code: userCode, prompt: null, response: 'Internal Server Error', formattedResponse: null };
   }
 };
