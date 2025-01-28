@@ -1,5 +1,3 @@
-/* !!! This Code has been copied from the SMU Bootcamp !!! */
-
 import jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
 import dotenv from 'dotenv';
