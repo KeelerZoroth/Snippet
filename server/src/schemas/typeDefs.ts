@@ -1,45 +1,52 @@
-/*
-  EXAMPLE
-
- type Profile {
+const typeDefs = `
+  type User {
     _id: ID
-    name: String
+    username: String
     email: String
     password: String
-    skills: [String]!
+    snippets: [Snippet]!
   }
 
-  type Auth {
-    token: ID!
-    profile: Profile
+  type Snippet {
+    _id: ID
+    text: String
+    title: String
+    summary: String
+    author: String
+    createdAt: String
   }
-  
-  input ProfileInput {
-    name: String!
+
+  input SnippetInput {
+    text: String!
+    author: String!
+  }
+
+  input UserInput {
+    username: String!
     email: String!
     password: String!
   }
+  
+  type Auth {
+    token: ID!
+    user: User
+  }
 
   type Query {
-    profiles: [Profile]!
-    profile(profileId: ID!): Profile
-    me: Profile
+    users: [User]
+    user(username: String!): User
+    snippets: [Snippet]!
+    snippet(snippetId: ID!): Snippet
+    me: User
   }
 
   type Mutation {
-    addProfile(input: ProfileInput!): Auth
+    addUser(input: UserInput!): Auth
     login(email: String!, password: String!): Auth
-
-    addSkill(profileId: ID!, skill: String!): Profile
-    removeProfile: Profile
-    removeSkill(skill: String!): Profile
+    addSnippet(input: SnippetInput!): Snippet
+    removeSnippet(snippetId: ID!): Snippet
   }
-*/
-
-
-
-const typeDefs = `
- 
 `;
 
 export default typeDefs;
+
