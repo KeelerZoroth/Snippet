@@ -12,6 +12,7 @@ const typeDefs = `
     text: String
     title: String
     summary: String
+    language: String
     author: String
     createdAt: String
   }

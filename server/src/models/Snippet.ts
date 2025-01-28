@@ -5,6 +5,7 @@ interface ISnippet extends Document {
   text: string;
   title: string;
   summary: string;
+  language: string;
   author: string;
   createdAt: Date;
 }
@@ -24,6 +25,10 @@ const SnippetSchema = new Schema<ISnippet>(
     summary: {
         type: String,
         trim: true
+    },
+    language: {
+      type: String,
+      trim: true
     },
     author: {
         type: String,
