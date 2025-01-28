@@ -1,5 +1,7 @@
+# !!! This Code has been mostly copied from the SMU Bootcamp !!!
+
 # Name of workflow
-name: Lint and Test workflow
+name: Test Build workflow
 
 # Trigger workflow on all pull requests
 on:
