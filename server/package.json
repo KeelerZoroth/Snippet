@@ -7,23 +7,25 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "watch": "nodemon",
+    "dev": "npx nodemon",
     "seed": "node dist/seeds/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "nodemonConfig":{
-    "exec":"npm run build && npm start",
-    "watch":["src/**/*"],
-    "ignore":["dist/"],
-    "ext": "ts, json"
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts,json,js",
+    "exec": "npx tsc && node dist/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.4.5",
     "@apollo/server": "^4.10.4",
     "bcrypt": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "langchain": "^0.1.37",
     "express": "^4.19.2",
     "graphql": "^16.9.0",
     "jsonwebtoken": "^8.5.1",
@@ -33,7 +35,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
-    "typescript": "^5.4.5",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "typescript": "^5.4.5"
   }
 }

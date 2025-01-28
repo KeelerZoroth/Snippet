@@ -1,7 +1,14 @@
+/* !!! This Code has been mostly copied from the SMU Bootcamp !!! */
+
 import express from 'express';
 import path from 'node:path';
 import type { Request, Response } from 'express';
 import db from './config/connection.js'
+
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 import { ApolloServer } from '@apollo/server';// Note: Import from @apollo/server-express
 import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs, resolvers } from './schemas/index.js';
@@ -43,3 +50,4 @@ const startApolloServer = async () => {
 };
 
 startApolloServer();
+
