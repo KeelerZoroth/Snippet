@@ -1,5 +1,6 @@
 import { Snippet, User } from '../models/index.js';
 import { signToken, AuthenticationError } from '../utils/auth.js'; 
+import { explainCode } from '../utils/openAI.js';
 
 // Define types for the arguments
 interface AddUserArgs {
@@ -93,7 +94,8 @@ const resolvers = {
     },
     addSnippet: async (_parent: any, { input }: AddSnippetArgs, context: any) => {
       if (context.user) {
-        const snippet = await Snippet.create({ ...input });
+        const openAIResponse = await explainCode(input.text)
+        const snippet = await Snippet.create({ ...input, ...openAIResponse.formattedResponse });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
