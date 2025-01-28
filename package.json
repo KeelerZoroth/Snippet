@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js",
-    "start:dev": "concurrently \"cd server && npm run watch\" \"wait-on tcp:3001 && cd client && npm run dev\"",
-    "server": "cd server && npm start",
+    "start": "cd server && npm run start",
+    "start:dev": "concurrently \"cd server && npm run dev\" \"wait-on tcp:3001 && cd client && npm run dev\"",
+    "server:build": "cd server && npm run build",
     "server:dev": "cd server && npm run dev",
     "install": "cd server && npm i && cd ../client && npm i",
     "client:build": "cd client && npm run build",
     "client:dev": "cd client && npm run dev",
-    "seed": "cd server && npm run seed",
     "build": "concurrently \"cd server && npm run build\" \"cd client && npm run build\"",
     "render-build": "npm install && npm run build"
   },
@@ -21,5 +20,8 @@
   "devDependencies": {
     "concurrently": "^8.2.2",
     "wait-on": "^7.2.0"
+  },
+  "dependencies": {
+    "styled-components": "^6.1.14"
   }
 }
