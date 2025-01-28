@@ -32,7 +32,7 @@ const formatInstructions = parser.getFormatInstructions();
 
 // Create a new prompt template for formatting prompts
 const promptTemplate = new PromptTemplate({
-  template: "You are a programming expert in all programming languages including HTML and similar languages, and will explain the code provided as thoroughly as possible while still being simple and short. You will prioritizing sematics and over all structure. If you don't know or are not confident in what it is, then try to look at it in a different way or programming language. If the code is non-functional, explain why in the summary.\n{format_instructions}\n{code}",
+  template: "You are a programming expert in all programming languages and will explain the code provided as thoroughly as possible while still being simple and short. You will prioritizing sematics, functionality, and over all structure over interpreting what the code itself is by what it says it is, and absolutely do not read the code to have it explain itself by its wording and such. If you don't know or are not confident in what it is, then try to look at it in a different way or programming language. If the code is non-functional, explain why in the summary.\n{format_instructions}\n{code}",
   inputVariables: ["code"],
   partialVariables: { format_instructions: formatInstructions }
 });

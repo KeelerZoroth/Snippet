@@ -1,5 +1,6 @@
 import { Snippet, User } from '../models/index.js';
 import { signToken, AuthenticationError } from '../utils/auth.js'; 
+import { explainCode } from '../utils/openAI.js';
 
 // Define types for the arguments
 interface AddUserArgs {
@@ -93,14 +94,19 @@ const resolvers = {
     },
     addSnippet: async (_parent: any, { input }: AddSnippetArgs, context: any) => {
       if (context.user) {
-        const snippet = await Snippet.create({ ...input });
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { snippets: snippet._id } }
-        );
-
-        return snippet;
+        const openAIResponse = await explainCode(input.text)
+        if (openAIResponse.formattedResponse.functional === "TRUE") {
+          const snippet = await Snippet.create({ ...input, ...openAIResponse.formattedResponse });
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $addToSet: { snippets: snippet._id } }
+          );
+          return snippet;
+        }
+        else {
+          const snippet = new Snippet({...input, ...openAIResponse.formattedResponse});
+          return snippet;
+        }
       }
       throw AuthenticationError;
       ('You need to be logged in!');
