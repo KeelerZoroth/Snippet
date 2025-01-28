@@ -37,6 +37,7 @@ export const ADD_SNIPPET = gql`
             author
             title
             summary
+            language
             text
             createdAt
         }

@@ -21,6 +21,7 @@ export const QUERY_SNIPPETS = gql`
             author
             title
             summary
+            language
             text
             createdAt
         }
@@ -34,6 +35,7 @@ export const QUERY_SINGLE_SNIPPET = gql`
             author
             title
             summary
+            language
             text
             createdAt
         }
