@@ -95,14 +95,18 @@ const resolvers = {
     addSnippet: async (_parent: any, { input }: AddSnippetArgs, context: any) => {
       if (context.user) {
         const openAIResponse = await explainCode(input.text)
-        const snippet = await Snippet.create({ ...input, ...openAIResponse.formattedResponse });
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { snippets: snippet._id } }
-        );
-
-        return snippet;
+        if (openAIResponse.formattedResponse.functional === "TRUE") {
+          const snippet = await Snippet.create({ ...input, ...openAIResponse.formattedResponse });
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $addToSet: { snippets: snippet._id } }
+          );
+          return snippet;
+        }
+        else {
+          const snippet = new Snippet({...input, ...openAIResponse.formattedResponse});
+          return snippet;
+        }
       }
       throw AuthenticationError;
       ('You need to be logged in!');

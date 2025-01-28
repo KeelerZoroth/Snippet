@@ -24,13 +24,15 @@ if (apiKey) {
 const parser = StructuredOutputParser.fromNamesAndDescriptions({
   title: "Title of the code to get the over all meaning of the code",
   summary: 'A summary of the code provided that is easy to understand and under 800 characters',
+  language: "Check what the programming language it is and give just its name, and if you don't know the language or it isn't a programming language then just do \"Unkown\"",
+  functional: "This will have two possible values, \"TRUE\" if the submitted code works, or \"FALSE\" if the submitted code throws errors or non-functional in some way",
 });
 
 const formatInstructions = parser.getFormatInstructions();
 
 // Create a new prompt template for formatting prompts
 const promptTemplate = new PromptTemplate({
-  template: "You are a programming expert in all programming languages and will explain the code provided as thoroughly as possible while still being simple and short, prioritizing sematics, functionality, and over all structure and do not interpreting what the code itself is by what it says it is. If the code is non-functional, explain why in the summary.\n{format_instructions}\n{code}",
+  template: "You are a programming expert in all programming languages and will explain the code provided as thoroughly as possible while still being simple and short. You will prioritizing sematics, functionality, and over all structure over interpreting what the code itself is by what it says it is, and absolutely do not read the code to have it explain itself by its wording and such. If you don't know or are not confident in what it is, then try to look at it in a different way or programming language. If the code is non-functional, explain why in the summary.\n{format_instructions}\n{code}",
   inputVariables: ["code"],
   partialVariables: { format_instructions: formatInstructions }
 });
