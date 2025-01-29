@@ -2,7 +2,6 @@ const typeDefs = `
   type User {
     _id: ID
     username: String
-    email: String
     password: String
     snippets: [Snippet]!
   }
@@ -19,12 +18,10 @@ const typeDefs = `
 
   input SnippetInput {
     text: String!
-    author: String!
   }
 
   input UserInput {
     username: String!
-    email: String!
     password: String!
   }
   
@@ -36,14 +33,14 @@ const typeDefs = `
   type Query {
     users: [User]
     user(username: String!): User
-    snippets: [Snippet]!
+    snippets(limit: Int): [Snippet]!
     snippet(snippetId: ID!): Snippet
     me: User
   }
 
   type Mutation {
     addUser(input: UserInput!): Auth
-    login(email: String!, password: String!): Auth
+    login(username: String!, password: String!): Auth
     addSnippet(input: SnippetInput!): Snippet
     removeSnippet(snippetId: ID!): Snippet
   }

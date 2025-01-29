@@ -1,7 +1,20 @@
+
 import { useEffect, useRef } from "react";
 import "../assets/styles/login.css";
 import HoloFace from "../pages/HoloFace"; 
 
+import type { ChangeEvent, FormEvent } from 'react';
+import styled from 'styled-components';
+
+
+import Auth from '../utils/auth';
+import type { User } from '../models/User';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations';
+import { useNavigate } from 'react-router-dom';
+        
+        
+        
 const speak = (message: string) => {
     const utterance = new SpeechSynthesisUtterance(message);
     utterance.lang = "en-US";
@@ -9,8 +22,67 @@ const speak = (message: string) => {
 };
 
 const Login = () => {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+   
+    
+    
+    
+    const [userFormData, setUserFormData] = useState<User>({
+    username: '',
+    password: '',
+  });
+  const [showAlert, setShowAlert] = useState(false);
 
+
+  const [loginUser] = useMutation(LOGIN_USER);
+
+  const navigate = useNavigate();
+
+
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
+  };
+
+  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const { data } = await loginUser({
+        variables: {
+          username: userFormData.username,
+          password: userFormData.password
+        }
+      });
+
+      if (!data) {
+        throw new Error('Something went wrong!');
+      }
+
+      const { token } = data.login;
+      Auth.login(token);
+      
+      navigate("/")
+      
+      setUserFormData({
+        username: '',
+        password: '',
+      });
+    } catch (err) {
+      console.error(err);
+      setShowAlert(true);
+    }
+
+    
+  };
+    
+    
+    
+    
+    
+    
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  
     useEffect(() => {
         speak("Welcome to the login page");
         
@@ -92,9 +164,39 @@ const Login = () => {
             <div className="login-box">
                 <HoloFace />
                 <h1>Login</h1>
-                <input type="text" placeholder="Username" onFocus={() => speak("Enter your username")} />
-                <input type="password" placeholder="Password" onFocus={() => speak("Enter your password")} />
-                <button className="login-button" onClick={() => speak("Logging in...")}>Login</button>
+                <form onSubmit={handleFormSubmit}>
+                  <input
+                    type="text"
+                    name="username"
+                    onChange={handleInputChange}
+                    value={userFormData.username}
+                    required
+                    placeholder="Username"
+                    onFocus={() => speak("Enter your username")} 
+                   />
+                  {showAlert && (
+                    <Feedback>Username is required!</Feedback>
+                  )}
+                  <input 
+                    type="password"
+                    name="password"
+                    onChange={handleInputChange}
+                    value={userFormData.password}
+                    required
+                    placeholder="Password"
+                    onFocus={() => speak("Enter your password")} 
+                   />
+                  {showAlert && (
+                      <Feedback>Password is required!</Feedback>
+                    )}
+                  <button 
+                    type="submit"
+                    disabled={!(userFormData.username && userFormData.password)}
+                    className="login-button" 
+                    onClick={() => speak("Logging in...")}>
+                      Login
+                    </button>
+                </form>
             </div>
         </div>
     );

@@ -5,7 +5,6 @@ export const QUERY_USER = gql`
         user(username: $username) {
             _id
             username
-            email
             password
             snippets {
             _id
@@ -47,8 +46,6 @@ query Me {
   me {
     _id
     username
-    password
-    email
     snippets {
       _id
     }
