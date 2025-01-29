@@ -1,3 +1,4 @@
+
 // import { useState } from "react";
 import styled from 'styled-components'
 // import auth from '../utils/auth';
@@ -7,6 +8,7 @@ import SnippetPost from "../components/SnippetPost";
 import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { QUERY_SNIPPETS } from "../utils/queries";
 import { useQuery} from "@apollo/client";
+
 
 const Home = () => {
     const { loading, error, data } = useQuery(QUERY_SNIPPETS);
@@ -71,6 +73,6 @@ const Home = () => {
             </CardsContainer>
         </Container>
     );
-}
+};
 
 export default Home;

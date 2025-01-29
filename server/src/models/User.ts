@@ -4,7 +4,6 @@ import bcrypt from 'bcrypt';
 // Define an interface for the User document
 interface IUser extends Document {
   username: string;
-  email: string;
   password: string;
   snippets: Schema.Types.ObjectId[];
   isCorrectPassword(password: string): Promise<boolean>;
@@ -18,12 +17,6 @@ const userSchema = new Schema<IUser>(
       required: true,
       unique: true,
       trim: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      match: [/.+@.+\..+/, 'Must match an email address!'],
     },
     password: {
       type: String,

@@ -6,13 +6,12 @@ import { explainCode } from '../utils/openAI.js';
 interface AddUserArgs {
   input:{
     username: string;
-    email: string;
     password: string;
   }
 }
 
 interface LoginUserArgs {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -22,6 +21,10 @@ interface UserArgs {
 
 interface SnippetArgs {
   snippetId: string;
+}
+
+interface SnippetsArgs {
+  limit: number;
 }
 
 interface AddSnippetArgs {
@@ -40,8 +43,13 @@ const resolvers = {
     user: async (_parent: any, { username }: UserArgs) => {
       return User.findOne({ username }).populate('snippets');
     },
-    snippets: async () => {
-      return await Snippet.find().sort({ createdAt: -1 });
+    snippets: async (_parent: any, { limit }: SnippetsArgs) => {
+      if (limit){
+        return await Snippet.find().sort({ createdAt: -1 }).limit(limit)
+      }
+      else {
+        return await Snippet.find().sort({ createdAt: -1 }).limit(10);
+      }
     },
     snippet: async (_parent: any, { snippetId }: SnippetArgs) => {
       return await Snippet.findOne({ _id: snippetId });
@@ -63,15 +71,15 @@ const resolvers = {
       const user = await User.create({ ...input });
     
       // Sign a token with the user's information
-      const token = signToken(user.username, user.email, user._id);
+      const token = signToken(user.username, user._id);
     
       // Return the token and the user
       return { token, user };
     },
     
-    login: async (_parent: any, { email, password }: LoginUserArgs) => {
+    login: async (_parent: any, { username, password }: LoginUserArgs) => {
       // Find a user with the provided email
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ username });
     
       // If no user is found, throw an AuthenticationError
       if (!user) {
@@ -87,7 +95,7 @@ const resolvers = {
       }
     
       // Sign a token with the user's information
-      const token = signToken(user.username, user.email, user._id);
+      const token = signToken(user.username, user._id);
     
       // Return the token and the user
       return { token, user };
@@ -95,8 +103,9 @@ const resolvers = {
     addSnippet: async (_parent: any, { input }: AddSnippetArgs, context: any) => {
       if (context.user) {
         const openAIResponse = await explainCode(input.text)
+        const author = context.user.username
         if (openAIResponse.formattedResponse.functional === "TRUE") {
-          const snippet = await Snippet.create({ ...input, ...openAIResponse.formattedResponse });
+          const snippet = await Snippet.create({ ...input, author, ...openAIResponse.formattedResponse });
           await User.findOneAndUpdate(
             { _id: context.user._id },
             { $addToSet: { snippets: snippet._id } }
