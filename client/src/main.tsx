@@ -1,11 +1,13 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.css'
 import ReactDOM from 'react-dom/client';
 
+import './assets/styles/index.css'
+import './assets/styles/App.css'
 
 import App from './App.tsx';
 import Home from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
+import ScanSnippet from './pages/ScanSnippet.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 
 const router = createBrowserRouter([
@@ -17,6 +19,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: '/scan-snippet',
+        element: <ScanSnippet />,
       },
       {
         path: '/login',
