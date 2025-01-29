@@ -16,7 +16,7 @@ const Home = () => {
     if (loading) return <p>Loading snippets...</p>;
     if (error) return <ErrorPage />;
 
-    const handleSnippetDelete = (deletedSnippetId: number) => {
+    const handleSnippetDelete = (deletedSnippetId: string) => {
         // If the backend removes the snippet, Apollo Client will update the cache automatically
         console.log(`Deleted snippet ID: ${deletedSnippetId}`);
     };
