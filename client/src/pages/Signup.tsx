@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Auth from '../utils/auth';
 import type { User } from '../models/User';
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
+import { ADD_USER } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';
 
 const StyledForm = styled.form`
@@ -69,7 +69,7 @@ const StyledButton = styled.button`
 
 
 
-const LoginForm = () => {
+const SignUp = () => {
   const [userFormData, setUserFormData] = useState<User>({
     username: '',
     password: '',
@@ -77,7 +77,7 @@ const LoginForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
 
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [addUser] = useMutation(ADD_USER);
 
   const navigate = useNavigate();
 
@@ -92,10 +92,12 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const { data } = await loginUser({
+      const { data } = await addUser({
         variables: {
-          username: userFormData.username,
-          password: userFormData.password
+            input:{
+                username: userFormData.username,
+                password: userFormData.password
+            }
         }
       });
 
@@ -105,9 +107,9 @@ const LoginForm = () => {
 
       const { token } = data.login;
       Auth.login(token);
-
+      
       navigate("/")
-
+      
       setUserFormData({
         username: '',
         password: '',
@@ -117,12 +119,12 @@ const LoginForm = () => {
       setShowAlert(true);
     }
 
-
+    
   };
 
   return (
     <>
-      <h1>FILLER LOGIN</h1>
+    <h1>FILLER SIGNUP</h1>
       <StyledForm onSubmit={handleFormSubmit}>
         <FormGroup>
           <Label htmlFor="username">Username</Label>
@@ -165,4 +167,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignUp;

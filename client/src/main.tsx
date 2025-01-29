@@ -9,6 +9,7 @@ import Home from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
 import ScanSnippet from './pages/ScanSnippet.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
+import SignUp from './pages/Signup.tsx';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <Login />,
+      },
+      {
+        path: '/signup',
+        element: <SignUp />,
       },
     ]
   },
