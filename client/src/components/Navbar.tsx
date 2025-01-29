@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../utils/auth';
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const Navbar = () => {
     const [loginCheck, setLoginCheck] = useState(false);
@@ -17,7 +17,7 @@ const Navbar = () => {
         checkLogin();
     }, [loginCheck]);
 
-    const Button = styled.button<{ primary: boolean }>`
+    const Button = styled.button<{}>`
       background: transparent;
   border-radius: 3px;
   border: 2px solid #BF4F74;
@@ -90,7 +90,11 @@ position: fixed;
 
                     <>
                         <Button>
-                            <NavLinks to="/">Home</NavLinks>
+                            <NavLinks>
+                                <li>
+                                    <Link to="/">Home</Link>
+                                </li>
+                            </NavLinks>
                             </Button>
                         <Button
                             onClick={() => {
