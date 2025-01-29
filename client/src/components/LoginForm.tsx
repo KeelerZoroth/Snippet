@@ -64,26 +64,26 @@ const StyledButton = styled.button`
   }
 `;
 
-const Alert = styled.div<{ show: boolean }>`
-  display: ${({ show }) => (show ? 'block' : 'none')};
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-  border-radius: 0.25rem;
-  padding: 1rem;
-  margin-top: 1rem;
-  position: relative;
+// const Alert = styled.div<{ show: boolean }>`
+//   display: ${({ show }) => (show ? 'block' : 'none')};
+//   background-color: #f8d7da;
+//   color: #721c24;
+//   border: 1px solid #f5c6cb;
+//   border-radius: 0.25rem;
+//   padding: 1rem;
+//   margin-top: 1rem;
+//   position: relative;
 
-  button {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: transparent;
-    border: none;
-    font-size: 1.25rem;
-    cursor: pointer;
-  }
-`;
+//   button {
+//     position: absolute;
+//     top: 0.5rem;
+//     right: 0.5rem;
+//     background: transparent;
+//     border: none;
+//     font-size: 1.25rem;
+//     cursor: pointer;
+//   }
+// `;
 
 const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
   const [userFormData, setUserFormData] = useState<User>({
@@ -93,7 +93,7 @@ const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
     savedSnippet: [],
   });
   const [validated] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [setShowAlert] = useState(false);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
