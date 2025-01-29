@@ -28,7 +28,6 @@ const ScanSnippet = () => {
                 variables: {
                     input:{
                         text: codeText,
-                        author: "meh",
                     }
                 },
             })
