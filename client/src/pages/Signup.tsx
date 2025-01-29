@@ -2,9 +2,12 @@ import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import styled from 'styled-components';
 
-import { loginUser } from '../utils/api';
+
 import Auth from '../utils/auth';
 import type { User } from '../models/User';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+import { useNavigate } from 'react-router-dom';
 
 const StyledForm = styled.form`
   display: flex;
@@ -64,36 +67,21 @@ const StyledButton = styled.button`
   }
 `;
 
-// const Alert = styled.div<{ show: boolean }>`
-//   display: ${({ show }) => (show ? 'block' : 'none')};
-//   background-color: #f8d7da;
-//   color: #721c24;
-//   border: 1px solid #f5c6cb;
-//   border-radius: 0.25rem;
-//   padding: 1rem;
-//   margin-top: 1rem;
-//   position: relative;
 
-//   button {
-//     position: absolute;
-//     top: 0.5rem;
-//     right: 0.5rem;
-//     background: transparent;
-//     border: none;
-//     font-size: 1.25rem;
-//     cursor: pointer;
-//   }
-// `;
 
-const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
+const SignUp = () => {
   const [userFormData, setUserFormData] = useState<User>({
     username: '',
-    email: '',
     password: '',
-    savedSnippet: [],
   });
-  const [validated] = useState(false);
-  // const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+
+  const [addUser] = useMutation(ADD_USER);
+
+  const navigate = useNavigate();
+
+
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -103,39 +91,41 @@ const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // check if form has everything (similar to react-bootstrap validation)
-    const form = event.currentTarget;
-    if (!form.checkValidity()) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
     try {
-      const response = await loginUser(userFormData);
+      const { data } = await addUser({
+        variables: {
+            input:{
+                username: userFormData.username,
+                password: userFormData.password
+            }
+        }
+      });
 
-      if (!response.ok) {
+      if (!data) {
         throw new Error('Something went wrong!');
       }
 
-      const { token } = await response.json();
+      const { token } = data.login;
       Auth.login(token);
-      handleModalClose();
+      
+      navigate("/")
+      
+      setUserFormData({
+        username: '',
+        password: '',
+      });
     } catch (err) {
       console.error(err);
-      // setShowAlert(true);
+      setShowAlert(true);
     }
 
-    setUserFormData({
-      username: '',
-      email: '',
-      password: '',
-      savedSnippet: [],
-    });
+    
   };
 
   return (
     <>
-      <StyledForm noValidate validated={validated} onSubmit={handleFormSubmit}>
+    <h1>FILLER SIGNUP</h1>
+      <StyledForm onSubmit={handleFormSubmit}>
         <FormGroup>
           <Label htmlFor="username">Username</Label>
           <Input
@@ -146,7 +136,7 @@ const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
             value={userFormData.username}
             required
           />
-          {!userFormData.username && (
+          {showAlert && (
             <Feedback>Username is required!</Feedback>
           )}
         </FormGroup>
@@ -161,7 +151,7 @@ const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
             value={userFormData.password}
             required
           />
-          {!userFormData.password && (
+          {showAlert && (
             <Feedback>Password is required!</Feedback>
           )}
         </FormGroup>
@@ -173,13 +163,8 @@ const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
           Submit
         </StyledButton>
       </StyledForm>
-
-      {/* <Alert show={showAlert}>
-        Something went wrong with your login credentials!
-        <button onClick={() => setShowAlert(false)}>&times;</button>
-      </Alert> */}
     </>
   );
 };
 
-export default LoginForm;
+export default SignUp;
