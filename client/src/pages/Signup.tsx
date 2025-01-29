@@ -133,7 +133,7 @@ const SignUp = () => {
             placeholder="Your username"
             name="username"
             onChange={handleInputChange}
-            value={userFormData.username}
+            value={userFormData.username!}
             required
           />
           {showAlert && (
@@ -148,7 +148,7 @@ const SignUp = () => {
             placeholder="Your password"
             name="password"
             onChange={handleInputChange}
-            value={userFormData.password}
+            value={userFormData.password!}
             required
           />
           {showAlert && (
