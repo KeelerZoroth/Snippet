@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const speak = (message: string) => {
     const utterance = new SpeechSynthesisUtterance(message);
     utterance.lang = "en-US";
-    speechSynthesis.speak(utterance);
+    speechSynthesis.speak(utterance); 
 };
 
 const Login = () => {
