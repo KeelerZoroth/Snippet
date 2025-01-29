@@ -1,10 +1,9 @@
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../assets/styles/login.css";
 import HoloFace from "../pages/HoloFace"; 
 
 import type { ChangeEvent, FormEvent } from 'react';
-import styled from 'styled-components';
 
 
 import Auth from '../utils/auth';
@@ -169,25 +168,25 @@ const Login = () => {
                     type="text"
                     name="username"
                     onChange={handleInputChange}
-                    value={userFormData.username}
+                    value={userFormData.username!}
                     required
                     placeholder="Username"
                     onFocus={() => speak("Enter your username")} 
                    />
                   {showAlert && (
-                    <Feedback>Username is required!</Feedback>
+                    <p>Username is required!</p>
                   )}
                   <input 
                     type="password"
                     name="password"
                     onChange={handleInputChange}
-                    value={userFormData.password}
+                    value={userFormData.password!}
                     required
                     placeholder="Password"
                     onFocus={() => speak("Enter your password")} 
                    />
                   {showAlert && (
-                      <Feedback>Password is required!</Feedback>
+                      <p>Password is required!</p>
                     )}
                   <button 
                     type="submit"
