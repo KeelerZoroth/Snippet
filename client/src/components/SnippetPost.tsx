@@ -12,16 +12,19 @@ interface SnippetPostProps extends SnippetPostData {
 
 const SnippetPost = ({ id, text, title, summary, language, author, createdAt, onDelete }: SnippetPostProps) => {
 
-    const [deleteCurr] = useMutation(REMOVE_SNIPPET);
+    const [deleteSnippetPost] = useMutation(REMOVE_SNIPPET);
 
     const deleteSnippet = async () => {
         try {
-            await deleteCurr({
+            await deleteSnippetPost({
                 variables: {
                     snippetId: id
                 }
             });
-            onDelete(id);
+            id ? 
+            onDelete(id)
+            :
+            console.log("No id to delete");
         } catch (error) {
             console.error(error);
         }
@@ -30,24 +33,24 @@ const SnippetPost = ({ id, text, title, summary, language, author, createdAt, on
 
 
     const Card = styled.div`
-position: fixed;
-   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 300px;
-  text-align: center;
-  transition: transform 0.3s ease-in-out;
+     position: fixed;
+     border-radius: 12px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     padding: 20px;
+     max-width: 300px;
+     text-align: center;
+     transition: transform 0.3s ease-in-out;
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-`;
+       &:hover {
+     transform: translateY(-5px);
+     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+     }
+     `;
 
     const CardText = styled.p`
-  font-size: 1rem;
-  color: #666;
-`;
+     font-size: 1rem;
+     color: #666;
+     `;
 
     const Button = styled.button<{ primary?: boolean }>`
       background: transparent;

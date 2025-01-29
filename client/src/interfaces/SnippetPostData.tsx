@@ -1,5 +1,5 @@
-export default interface SnippetPostData {
-    id?: ID;
+export interface SnippetPostData {
+    id: number;
     text: String;
     title: String;
     summary: String;
