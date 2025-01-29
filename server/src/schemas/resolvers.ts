@@ -67,14 +67,15 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (_parent: any, { input }: AddUserArgs) => {
-      // Create a new user with the provided username, email, and password
-      const user = await User.create({ ...input });
-    
-      // Sign a token with the user's information
-      const token = signToken(user.username, user._id);
-    
-      // Return the token and the user
-      return { token, user };
+      try {
+        const user = await User.create({ ...input });
+        const token = signToken(user.username, user._id);
+        return { token, user };
+      } catch (error: any) {
+        console.error(error.message)
+        return error
+      }
+      
     },
     
     login: async (_parent: any, { username, password }: LoginUserArgs) => {

@@ -1,10 +1,12 @@
 import "../assets/styles/home.css"; // Import CSS
+import { SearchBar } from "../components/SearchBar";
 
 const Home = () => {
     return (
         <section className="home-container">
-            <h1></h1>
+            <SearchBar></SearchBar>
         </section>
+        
     );
 };
 
