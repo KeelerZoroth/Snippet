@@ -10,7 +10,7 @@ interface SnippetPostProps extends SnippetPostData {
     onDelete: (id: number) => void;
 }
 
-const SnippetPost = ({ id, text, title, summary, language, author, createdAt, onDelete }: SnippetPostProps) => {
+const SnippetPost = ({ id, text, title, summary, language, author, createdAt }: SnippetPostProps) => {
 
     const [deleteSnippetPost] = useMutation(REMOVE_SNIPPET);
 
@@ -21,10 +21,6 @@ const SnippetPost = ({ id, text, title, summary, language, author, createdAt, on
                     snippetId: id
                 }
             });
-            id ? 
-            onDelete(id)
-            :
-            console.log("No id to delete");
         } catch (error) {
             console.error(error);
         }
@@ -64,7 +60,7 @@ const SnippetPost = ({ id, text, title, summary, language, author, createdAt, on
             <CardText>{language}</CardText>
             <CardText>{author}</CardText>
             <CardText>{createdAt}</CardText>
-            {author === auth.getProfile().data.username && <Button onClick={deleteSnippet}>Delete</Button>}
+            {auth.loggedIn() ? <Button onClick={deleteSnippet}>Delete</Button> : <span></span> }
         </Card>
     )
 

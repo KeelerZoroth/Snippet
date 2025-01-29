@@ -24,6 +24,7 @@ const Home = () => {
 
     const Container = styled.div`
   margin-top: 60px;
+  width: 80%;
   padding: 1rem;
   min-height: calc(100vh - 60px);
   background-color: #f4f4f4;
@@ -39,11 +40,11 @@ const Home = () => {
 
     const CardsContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
   width: 100%;
-  max-width: 800px;
-  align-items: center;
+  justify-content: space-around;
 `;
 
     const SnippetCard = styled.div`
@@ -53,6 +54,7 @@ const Home = () => {
   padding: 20px;
   width: 100%;
   max-width: 400px;
+  height: 550px;
   transition: transform 0.3s ease-in-out;
 
   &:hover {

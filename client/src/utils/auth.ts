@@ -3,7 +3,6 @@ import { type JwtPayload, jwtDecode } from 'jwt-decode';
 interface ExtendedJwt extends JwtPayload {
   data:{
     username:string,
-    email:string,
     id:string
   }
 };
