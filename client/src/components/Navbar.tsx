@@ -25,11 +25,11 @@ const Navbar = () => {
   margin: 0.5em 1em;
   padding: 0.25em 1em;
 
-  ${props => props.$primary && css`
-    background: #BF4F74;
-    color: white;
-  `}
 `;
+  // ${props => props.$primary && css`
+  //   background: #BF4F74;
+  //   color: white;
+  // `}
 
 const Container = styled.div`
 position: fixed;
@@ -82,7 +82,7 @@ position: fixed;
             <div>
                 {!loginCheck ? (
                     <div>
-                        <NavLinks $primary>
+                        <NavLinks>
                             <Link to="/login">Login/Sign Up</Link>
                         </NavLinks>
                     </div>
