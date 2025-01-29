@@ -1,9 +1,11 @@
+import "../assets/styles/home.css"; // Import CSS
+
 const Home = () => {
     return (
-        <section>
-            <h1>Filler Homepage!!!!</h1>
+        <section className="home-container">
+            <h1></h1>
         </section>
     );
-}
+};
 
 export default Home;
