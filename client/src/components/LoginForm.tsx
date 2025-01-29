@@ -93,7 +93,7 @@ const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
     savedSnippet: [],
   });
   const [validated] = useState(false);
-  const [setShowAlert] = useState(false);
+  // const [showAlert, setShowAlert] = useState(false);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -122,7 +122,7 @@ const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
       handleModalClose();
     } catch (err) {
       console.error(err);
-      setShowAlert(true);
+      // setShowAlert(true);
     }
 
     setUserFormData({
