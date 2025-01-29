@@ -32,8 +32,6 @@ const ScanSnippet = () => {
                 },
             })
 
-            console.log(data)
-
             setCodeTitle(data.addSnippet.title)
             setCodeSummary(data.addSnippet.summary)
 
