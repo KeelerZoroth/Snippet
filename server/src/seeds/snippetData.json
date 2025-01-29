@@ -1,7 +1,21 @@
-{
+[{
     "text": "<div>Code Snippet Here</div>",
     "title": "Example Code Snippet",
     "language": "HTML",
     "summary": "This is an example of how the data structure for a code snippet would look.",
     "author": "SunnyColfax98"
-}
+},
+{
+    "text": "print('Hello World')",
+    "title": "Example Code Snippet 2",
+    "language": "Python",
+    "summary": "This is a simple Python statement that outputs text to the console.",
+    "author": "SunnyColfax98"
+},
+{
+    "text": "console.log('Hello World')",
+    "title": "Example Code Snippet 3",
+    "language": "HTML",
+    "summary": "This is a JavaScript statement that prints text to the console.",
+    "author": "SunnyColfax98"
+}]
