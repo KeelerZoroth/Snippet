@@ -8,6 +8,8 @@ import SnippetPost from "../components/SnippetPost";
 import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { QUERY_SNIPPETS } from "../utils/queries";
 import { useQuery} from "@apollo/client";
+import { ObjectId } from 'mongoose'
+import { SearchBar } from '../components/SearchBar';
 
 
 const Home = () => {
@@ -16,7 +18,7 @@ const Home = () => {
     if (loading) return <p>Loading snippets...</p>;
     if (error) return <ErrorPage />;
 
-    const handleSnippetDelete = (deletedSnippetId: string) => {
+    const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
         // If the backend removes the snippet, Apollo Client will update the cache automatically
         console.log(`Deleted snippet ID: ${deletedSnippetId}`);
     };
@@ -66,12 +68,13 @@ const Home = () => {
     return (
         <Container>
             <Header>Some Code on the Front Page</Header>
+            <SearchBar />
             <CardsContainer>
-                {data.snippets.map((snippetPost: SnippetPostData) => (
-                    <SnippetCard key={snippetPost.id}>
+                {data.snippets.map((snippetPost: SnippetPostData) => 
+                    <SnippetCard key={snippetPost.title}>
                         <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
                     </SnippetCard>
-                ))}
+                )}
             </CardsContainer>
         </Container>
     );

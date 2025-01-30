@@ -1,5 +1,7 @@
+import { ObjectId } from 'mongoose'
+
 export interface SnippetPostData {
-    id: number;
+    id: ObjectId;
     text: string;
     title: string;
     summary: string;
