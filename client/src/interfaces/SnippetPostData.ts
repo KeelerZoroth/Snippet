@@ -1,10 +1,11 @@
 import { ObjectId } from 'mongoose'
 
-export interface Snippet {
+export interface SnippetPostData {
     id: ObjectId;
-    author: string;
+    text: string;
     title: string;
     summary: string;
-    text: string;
+    language: string;
+    author: string;
     createdAt: string;
-  }
+}

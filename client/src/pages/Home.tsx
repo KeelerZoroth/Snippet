@@ -8,6 +8,8 @@ import SnippetPost from "../components/SnippetPost";
 import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { QUERY_SNIPPETS } from "../utils/queries";
 import { useQuery} from "@apollo/client";
+import { ObjectId } from 'mongoose'
+import { SearchBar } from '../components/SearchBar';
 
 
 const Home = () => {
@@ -16,7 +18,7 @@ const Home = () => {
     if (loading) return <p>Loading snippets...</p>;
     if (error) return <ErrorPage />;
 
-    const handleSnippetDelete = (deletedSnippetId: number) => {
+    const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
         // If the backend removes the snippet, Apollo Client will update the cache automatically
         console.log(`Deleted snippet ID: ${deletedSnippetId}`);
     };
@@ -24,6 +26,7 @@ const Home = () => {
 
     const Container = styled.div`
   margin-top: 60px;
+  width: 80%;
   padding: 1rem;
   min-height: calc(100vh - 60px);
   background-color: #f4f4f4;
@@ -39,11 +42,11 @@ const Home = () => {
 
     const CardsContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
   width: 100%;
-  max-width: 800px;
-  align-items: center;
+  justify-content: space-around;
 `;
 
     const SnippetCard = styled.div`
@@ -53,6 +56,7 @@ const Home = () => {
   padding: 20px;
   width: 100%;
   max-width: 400px;
+  height: 550px;
   transition: transform 0.3s ease-in-out;
 
   &:hover {
@@ -64,12 +68,13 @@ const Home = () => {
     return (
         <Container>
             <Header>Some Code on the Front Page</Header>
+            <SearchBar />
             <CardsContainer>
-                {data.snippets.map((snippetPost: SnippetPostData) => (
-                    <SnippetCard key={snippetPost.id}>
+                {data.snippets.map((snippetPost: SnippetPostData) => 
+                    <SnippetCard key={snippetPost.title}>
                         <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
                     </SnippetCard>
-                ))}
+                )}
             </CardsContainer>
         </Container>
     );

@@ -4,6 +4,7 @@ import HoloFace from "../pages/HoloFace";
 
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
+import auth from "../utils/auth"
 import { useNavigate } from "react-router-dom";
 
 const speak = (message: string) => {
@@ -39,7 +40,7 @@ const Login = () => {
             if (!data) throw new Error("Something went wrong!");
 
             const { token } = data.login;
-            localStorage.setItem("auth_token", token); // Store token
+            auth.login(token)
             navigate("/"); // Redirect after login
 
             setUserFormData({ username: "", password: "" });

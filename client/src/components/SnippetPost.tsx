@@ -5,12 +5,13 @@ import { SnippetPostData } from '../interfaces/SnippetPostData';
 import styled from 'styled-components';
 import { REMOVE_SNIPPET } from '../utils/mutations';
 import { useMutation } from "@apollo/client";
+import { ObjectId } from 'mongoose'
 
 interface SnippetPostProps extends SnippetPostData {
-    onDelete: (id: number) => void;
+    onDelete: (id: ObjectId) => void;
 }
 
-const SnippetPost = ({ id, text, title, summary, language, author, createdAt, onDelete }: SnippetPostProps) => {
+const SnippetPost = ({ id, text, title, summary, language, author, createdAt }: SnippetPostProps) => {
 
     const [deleteSnippetPost] = useMutation(REMOVE_SNIPPET);
 
@@ -21,10 +22,6 @@ const SnippetPost = ({ id, text, title, summary, language, author, createdAt, on
                     snippetId: id
                 }
             });
-            id ? 
-            onDelete(id)
-            :
-            console.log("No id to delete");
         } catch (error) {
             console.error(error);
         }
@@ -64,7 +61,7 @@ const SnippetPost = ({ id, text, title, summary, language, author, createdAt, on
             <CardText>{language}</CardText>
             <CardText>{author}</CardText>
             <CardText>{createdAt}</CardText>
-            {author === auth.getProfile().data.username && <Button onClick={deleteSnippet}>Delete</Button>}
+            {auth.loggedIn() && auth.getProfile().data.username === author ? <Button onClick={deleteSnippet}>Delete</Button> : <span></span> }
         </Card>
     )
 
