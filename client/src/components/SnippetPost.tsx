@@ -30,23 +30,33 @@ const SnippetPost = ({ id, text, title, summary, language, author, createdAt }: 
 
 
     const Card = styled.div`
-     position: fixed;
-     border-radius: 12px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     padding: 20px;
-     max-width: 300px;
-     text-align: center;
-     transition: transform 0.3s ease-in-out;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    background: white;
 
-       &:hover {
-     transform: translateY(-5px);
-     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-     }
-     `;
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+`;
 
     const CardText = styled.p`
      font-size: 1rem;
      color: #666;
+     padding: 0.5rem;
+     `;
+
+    const CodeBlock = styled.p`
+     font-size: 1rem;
+     color: #666;
+     padding: 0.5rem;
+     border-width: 1px;
+     border-style: solid;
+        border-color: #333333;
      `;
 
     const Button = styled.button<{ primary?: boolean }>`
@@ -56,7 +66,7 @@ const SnippetPost = ({ id, text, title, summary, language, author, createdAt }: 
     return (
         <Card>
             <h2>{title}</h2>
-            <CardText>{text}</CardText>
+            <CodeBlock>{text}</CodeBlock>
             <CardText>{summary}</CardText>
             <CardText>{language}</CardText>
             <CardText>{author}</CardText>

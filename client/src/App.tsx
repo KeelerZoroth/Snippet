@@ -40,6 +40,8 @@ function App() {
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
+      flexGrow: "1",
+      overflowY: "auto"
     },
     backgroundImgDiv: {
       position: "fixed",
