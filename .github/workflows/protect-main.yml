@@ -1,0 +1,34 @@
+name: Restrict Merges to Main
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  enforce-branch-policy:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # Allows closing PRs with GitHub CLI
+
+    steps:
+      - name: Check Source Branch
+        run: |
+          ALLOWED_BRANCHES=("develop")
+          SOURCE_BRANCH="${{ github.head_ref }}"
+          
+          ALLOWED=false
+          for BRANCH in "${ALLOWED_BRANCHES[@]}"; do
+            if [[ "$SOURCE_BRANCH" == "$BRANCH" ]]; then
+              ALLOWED=true
+              break
+            fi
+          done
+
+          if [[ "$ALLOWED" == "false" ]]; then
+            echo "❌ Merging from '${SOURCE_BRANCH}' to 'main' is not allowed!"
+            exit 1
+          fi
+
+      - name: Allow Merge
+        run: echo "✅ Merge is allowed from ${SOURCE_BRANCH}"
