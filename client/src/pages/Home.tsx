@@ -9,7 +9,6 @@ import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { QUERY_SNIPPETS } from "../utils/queries";
 import { useQuery} from "@apollo/client";
 import { ObjectId } from 'mongoose'
-import { SearchBar } from '../components/SearchBar';
 
 
 const Home = () => {
@@ -118,7 +117,7 @@ const Home = () => {
                     </MakeSnippet>
                     <CardsContainer>
                         {data.snippets.map((snippetPost: SnippetPostData) => (
-                            <SnippetCard key={snippetPost.id}>
+                            <SnippetCard key={snippetPost.id.toString()}>
                                 <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
                             </SnippetCard>
                         ))}
@@ -129,7 +128,7 @@ const Home = () => {
                     <Header>Check out some snippets below! Log in to add your own!</Header>
                     <CardsContainer>
                         {data.snippets.map((snippetPost: SnippetPostData) => (
-                            <SnippetCard key={snippetPost.id}>
+                            <SnippetCard key={snippetPost.id.toString()}>
                                 <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
                             </SnippetCard>
                         ))}
