@@ -128,7 +128,7 @@ const Home = () => {
                     <Header>Check out some snippets below! Log in to add your own!</Header>
                     <CardsContainer>
                         {data.snippets.map((snippetPost: SnippetPostData) => (
-                            <SnippetCard key={snippetPost.id}>
+                            <SnippetCard key={snippetPost.id.toString()}>
                                 <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
                             </SnippetCard>
                         ))}
