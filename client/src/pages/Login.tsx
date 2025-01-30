@@ -4,7 +4,6 @@ import HoloFace from "../components/HoloFace";
 
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
-import auth from "../utils/auth"
 import { useNavigate } from "react-router-dom";
 import auth from "../utils/auth";
 
