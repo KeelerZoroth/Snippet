@@ -9,4 +9,5 @@
     justify-content: center;
     text-align: center;
     color: white;
+    overflow-y: auto;
 }
