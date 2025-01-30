@@ -4,6 +4,7 @@ import { setContext } from '@apollo/client/link/context';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
+import backgroundImg from './assets/pictures/7.jpg'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -40,13 +41,25 @@ function App() {
       flexDirection: "row",
       justifyContent: "center",
       flexGrow: "1",
-    overflowY: "auto"
+      overflowY: "auto"
+    },
+    backgroundImgDiv: {
+      position: "fixed",
+      top: "0",
+      backgroundImage: `url(${backgroundImg})`, 
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      height: "100%",
+      width: "100%",
+      zIndex: "-100",
     }
   }
 
 
   return (
     <> 
+      <div style={styles.backgroundImgDiv}/>
       <ApolloProvider client={client}>
         <Navbar />
         <main className='container pt-5' style={styles.main}>
