@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import "../assets/styles/login.css";
-import HoloFace from "../pages/HoloFace";
+import HoloFace from "../components/HoloFace";
 
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
-import auth from "../utils/auth"
 import { useNavigate } from "react-router-dom";
+import auth from "../utils/auth";
+
 
 const speak = (message: string) => {
     const utterance = new SpeechSynthesisUtterance(message);
@@ -40,7 +41,9 @@ const Login = () => {
             if (!data) throw new Error("Something went wrong!");
 
             const { token } = data.login;
-            auth.login(token)
+
+            auth.login(token); // Store token
+
             navigate("/"); // Redirect after login
 
             setUserFormData({ username: "", password: "" });

@@ -17,7 +17,6 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url("../pictures/7.jpg") no-repeat center center/cover;
 }
 
 .stars-canvas {
