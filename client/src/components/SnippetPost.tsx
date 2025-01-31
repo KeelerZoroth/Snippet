@@ -11,7 +11,7 @@ interface SnippetPostProps extends SnippetPostData {
     onDelete: (id: ObjectId) => void;
 }
 
-const SnippetPost = ({ id, text, title, summary, language, author }: SnippetPostProps) => {
+const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPostProps) => {
 
     const [deleteSnippetPost] = useMutation(REMOVE_SNIPPET);
 
@@ -19,7 +19,7 @@ const SnippetPost = ({ id, text, title, summary, language, author }: SnippetPost
         try {
             await deleteSnippetPost({
                 variables: {
-                    snippetId: id
+                    snippetId: _id
                 }
             });
         } catch (error) {
