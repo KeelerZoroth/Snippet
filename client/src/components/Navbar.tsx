@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../utils/auth';
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import TempSnippetLogo from '../../public/TempSnippetLogo.png';
 
 
