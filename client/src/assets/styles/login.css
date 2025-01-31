@@ -1,0 +1,118 @@
+.login-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stars-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+}
+
+.parallax-layer {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background: url("../pictures/parallax.png") no-repeat center center/cover;
+    animation: parallaxMove 10s infinite linear;
+    z-index: 0;
+}
+
+@keyframes parallaxMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10%); }
+}
+
+.login-box {
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    text-align: center;
+    width: 350px;
+    backdrop-filter: blur(10px);
+    animation: neon-glow 3s infinite alternate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes neon-glow {
+    0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.8); }
+    25% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.8); }
+    50% { box-shadow: 0 0 20px rgba(0, 0, 255, 0.8); }
+    75% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.8); }
+    100% { box-shadow: 0 0 10px rgba(255, 255, 0, 0.8); }
+}
+
+.login-box h1 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.login-box input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-align: center;
+}
+
+.login-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.login-button {
+    width: 90%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.login-button:hover {
+    animation: rgb-hover 2s infinite alternate;
+}
+
+@keyframes rgb-hover {
+    0% { background: rgb(255, 0, 0); }
+    25% { background: rgb(0, 255, 0); }
+    50% { background: rgb(0, 0, 255); }
+    75% { background: rgb(255, 0, 255); }
+    100% { background: rgb(255, 255, 0); }
+}
+
+.holo-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 15px auto;
+    border-radius: 50%;
+    background: rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    overflow: hidden;
+    animation: holoGlow 3s infinite alternate;
+}
+
+@keyframes holoGlow {
+    0% { box-shadow: 0 0 10px rgba(0, 255, 255, 0.7); }
+    50% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.7); }
+    100% { box-shadow: 0 0 10px rgba(255, 255, 0, 0.7); }
+}

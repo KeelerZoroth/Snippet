@@ -1,7 +1,100 @@
-{
-    "text": "<div>Code Snippet Here</div>",
-    "title": "Example Code Snippet",
-    "language": "HTML",
-    "summary": "This is an example of how the data structure for a code snippet would look.",
-    "author": "SunnyColfax98"
-}
+[
+    {
+        "text": "<div>Code Snippet Here</div>",
+        "title": "Basic HTML Structure",
+        "language": "HTML",
+        "summary": "This is a simple HTML div element.",
+        "author": "SunnyColfax98"
+    },
+    {
+        "text": "print('Hello World')",
+        "title": "Print in Python",
+        "language": "Python",
+        "summary": "A basic Python statement that prints text to the console.",
+        "author": "SunnyColfax98"
+    },
+    {
+        "text": "console.log('Hello World')",
+        "title": "JavaScript Console Log",
+        "language": "JavaScript",
+        "summary": "Logs a message to the browser's developer console.",
+        "author": "SunnyColfax98"
+    },
+    {
+        "text": "SELECT * FROM users WHERE active = 1;",
+        "title": "SQL Query Example",
+        "language": "SQL",
+        "summary": "A SQL statement to retrieve all active users from the database.",
+        "author": "DBAdmin"
+    },
+    {
+        "text": "def fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)",
+        "title": "Recursive Fibonacci",
+        "language": "Python",
+        "summary": "A recursive implementation of the Fibonacci sequence in Python.",
+        "author": "CodeMaster42"
+    },
+    {
+        "text": "const add = (a, b) => a + b;\nconsole.log(add(5, 3));",
+        "title": "Arrow Function in JavaScript",
+        "language": "JavaScript",
+        "summary": "A simple arrow function to add two numbers.",
+        "author": "JSFanatic"
+    },
+    {
+        "text": "class Animal {\n  constructor(name) {\n    this.name = name;\n  }\n  speak() {\n    console.log(`${this.name} makes a noise.`);\n  }\n}\nconst dog = new Animal('Dog');\ndog.speak();",
+        "title": "Basic JavaScript Class",
+        "language": "JavaScript",
+        "summary": "Defines a class with a method and instantiates an object.",
+        "author": "SunnyColfax98"
+    },
+    {
+        "text": "#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << \"Hello, World!\" << endl;\n    return 0;\n}",
+        "title": "C++ Hello World",
+        "language": "C++",
+        "summary": "A simple program that prints 'Hello, World!' to the console in C++.",
+        "author": "CppDev"
+    },
+    {
+        "text": "function factorial(n) {\n  if (n === 0) return 1;\n  return n * factorial(n - 1);\n}",
+        "title": "Factorial Function",
+        "language": "JavaScript",
+        "summary": "A recursive function to calculate the factorial of a number.",
+        "author": "AlgoGeek"
+    },
+    {
+        "text": "function bubbleSort(arr) {\n    let len = arr.length;\n    for (let i = 0; i < len; i++) {\n        for (let j = 0; j < len - i - 1; j++) {\n            if (arr[j] > arr[j + 1]) {\n                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];\n            }\n        }\n    }\n    return arr;\n}",
+        "title": "Bubble Sort Algorithm",
+        "language": "JavaScript",
+        "summary": "An implementation of the Bubble Sort algorithm.",
+        "author": "AlgoNinja"
+    },
+    {
+        "text": "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}",
+        "title": "Java Hello World",
+        "language": "Java",
+        "summary": "A basic 'Hello, World!' program in Java.",
+        "author": "JavaDev99"
+    },
+    {
+        "text": "let queue = [];\nqueue.push(1);\nqueue.push(2);\nconsole.log(queue.shift());",
+        "title": "Queue Implementation",
+        "language": "JavaScript",
+        "summary": "A basic queue operation using JavaScript arrays.",
+        "author": "SunnyColfax98"
+    },
+    {
+        "text": "body {\n  font-family: Arial, sans-serif;\n  background-color: #333;\n  color: white;\n  padding: 20px;\n}",
+        "title": "Basic CSS Styling",
+        "language": "CSS",
+        "summary": "A simple CSS snippet for dark-themed styling.",
+        "author": "CSSWizard"
+    },
+    {
+        "text": "interface User {\n  id: number;\n  name: string;\n  email?: string;\n}\n\nconst getUser = (id: number): User => {\n  return { id, name: 'John Doe', email: 'john@example.com' };\n};\n\nconsole.log(getUser(1));",
+        "title": "TypeScript Interface Example",
+        "language": "TypeScript",
+        "summary": "Defines a User interface and a function that returns user data.",
+        "author": "TSDevGuru"
+    }
+]

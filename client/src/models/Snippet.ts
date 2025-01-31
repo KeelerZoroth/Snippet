@@ -1,5 +1,7 @@
+import { ObjectId } from 'mongoose'
+
 export interface Snippet {
-    _id: string;
+    id: ObjectId;
     author: string;
     title: string;
     summary: string;

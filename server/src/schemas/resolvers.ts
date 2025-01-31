@@ -25,6 +25,7 @@ interface SnippetArgs {
 
 interface SnippetsArgs {
   limit: number;
+  search: string;
 }
 
 interface AddSnippetArgs {
@@ -43,9 +44,15 @@ const resolvers = {
     user: async (_parent: any, { username }: UserArgs) => {
       return User.findOne({ username }).populate('snippets');
     },
-    snippets: async (_parent: any, { limit }: SnippetsArgs) => {
-      if (limit){
+    snippets: async (_parent: any, { limit, search }: SnippetsArgs) => {
+      if (limit && search){
+        return await Snippet.find().or([{language: search}, {title: search}, {author: search}]).sort({ createdAt: -1 }).limit(limit)
+      }
+      else if (limit){
         return await Snippet.find().sort({ createdAt: -1 }).limit(limit)
+      }
+      else if (search){
+        return await Snippet.find({ language: search }).sort({ createdAt: -1 }).limit(10)
       }
       else {
         return await Snippet.find().sort({ createdAt: -1 }).limit(10);
@@ -67,14 +74,15 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (_parent: any, { input }: AddUserArgs) => {
-      // Create a new user with the provided username, email, and password
-      const user = await User.create({ ...input });
-    
-      // Sign a token with the user's information
-      const token = signToken(user.username, user._id);
-    
-      // Return the token and the user
-      return { token, user };
+      try {
+        const user = await User.create({ ...input });
+        const token = signToken(user.username, user._id);
+        return { token, user };
+      } catch (error: any) {
+        console.error(error.message)
+        return error
+      }
+      
     },
     
     login: async (_parent: any, { username, password }: LoginUserArgs) => {
