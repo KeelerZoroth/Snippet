@@ -50,16 +50,17 @@ const Button = styled.button`
 export const SearchBar: React.FC = () => {
     const [search, setSearch] = useState<string>("");
     const [snippets, setSnippets] = useState([]);
-    const { loading, error, data } = useQuery(QUERY_SNIPPETS)
+    const { loading, error, data, refetch } = useQuery(QUERY_SNIPPETS, {
+        variables: {
+            search
+        }
+    })
 
-    const handleSubmit = (event: FormEvent) => {
+    const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         try {
-            setSnippets(data.snippets.filter((snippet: SnippetPostData) => {
-                return snippet.title.toLowerCase().includes(search.toLowerCase()) 
-                || snippet.language.toLowerCase().includes(search.toLowerCase()) 
-                || snippet.summary.toLowerCase().includes(search.toLowerCase());
-            }));
+            await refetch();
+            setSnippets(data.snippets)
         } catch (err) {
             console.error(err)
         }
@@ -79,7 +80,7 @@ export const SearchBar: React.FC = () => {
             <Label>Search</Label>
             <SearchInput
                 type='text'
-                placeholder='Search for a Language or Title...'
+                placeholder='Search for a Language...'
                 value={search}
                 onChange={handleChange} />
             <Button type="submit">Submit</Button>
