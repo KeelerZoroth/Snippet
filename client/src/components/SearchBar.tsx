@@ -10,12 +10,16 @@ const Form = styled.form`
 
 const Label = styled.label`
     background: black;
+    color: white;
     `
 const SearchInput = styled.input`
-    height: 30px
+    height: 30px;
     `
 const Button = styled.button`
-    width: 100%
+    width: 100%;
+    border-radius: 12px;
+    padding: 5px;
+    margin: 5px 0;
     `
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

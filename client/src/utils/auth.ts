@@ -37,10 +37,12 @@ class AuthService {
 
   login(idToken: string) {
     localStorage.setItem('id_token', idToken);
+    window.dispatchEvent(new Event('authChange')); // Dispatch event for automatic updates to home page
   }
 
   logout() {
     localStorage.removeItem('id_token');
+    window.dispatchEvent(new Event('authChange')); // Dispatch event for automatic updates to home page
   }
 }
 
