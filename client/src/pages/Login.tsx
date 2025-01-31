@@ -6,6 +6,8 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import { useNavigate } from "react-router-dom";
 import auth from "../utils/auth";
+import { Link } from "react-router-dom";
+
 
 
 const speak = (message: string) => {
@@ -168,6 +170,7 @@ const Login = () => {
                     >
                         Login
                     </button>
+                    <Link to="/signup">Don't have an account? Sign up here!</Link>
                 </form>
             </div>
         </div>
