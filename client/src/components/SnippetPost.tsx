@@ -45,7 +45,7 @@ const Button = styled.button<{ primary?: boolean }>`
       background: transparent;
       `
 
-const SnippetPost = ({ id, text, title, summary, language, author }: SnippetPostProps) => {
+const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPostProps) => {
 
     const [deleteSnippetPost] = useMutation(REMOVE_SNIPPET);
 
@@ -53,7 +53,7 @@ const SnippetPost = ({ id, text, title, summary, language, author }: SnippetPost
         try {
             await deleteSnippetPost({
                 variables: {
-                    snippetId: id
+                    snippetId: _id
                 }
             });
         } catch (error) {
