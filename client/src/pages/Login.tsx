@@ -11,7 +11,7 @@ import auth from "../utils/auth";
 const speak = (message: string) => {
     const utterance = new SpeechSynthesisUtterance(message);
     utterance.lang = "en-US";
-    speechSynthesis.speak(utterance); 
+    speechSynthesis.speak(utterance);
 };
 
 const Login = () => {
@@ -148,7 +148,7 @@ const Login = () => {
                         onFocus={() => speak("Enter your username")}
                     />
                     {showAlert && <p>Username is required!</p>}
-                    
+
                     <input
                         type="password"
                         name="password"
