@@ -33,7 +33,7 @@ const typeDefs = `
   type Query {
     users: [User]
     user(username: String!): User
-    snippets(limit: Int): [Snippet]!
+    snippets(limit: Int, search: String): [Snippet]!
     snippet(snippetId: ID!): Snippet
     me: User
   }
