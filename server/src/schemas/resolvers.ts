@@ -25,6 +25,7 @@ interface SnippetArgs {
 
 interface SnippetsArgs {
   limit: number;
+  search: string;
 }
 
 interface AddSnippetArgs {
@@ -43,9 +44,15 @@ const resolvers = {
     user: async (_parent: any, { username }: UserArgs) => {
       return User.findOne({ username }).populate('snippets');
     },
-    snippets: async (_parent: any, { limit }: SnippetsArgs) => {
-      if (limit){
+    snippets: async (_parent: any, { limit, search }: SnippetsArgs) => {
+      if (limit && search){
+        return await Snippet.find({ language: search }).sort({ createdAt: -1 }).limit(limit)
+      }
+      else if (limit){
         return await Snippet.find().sort({ createdAt: -1 }).limit(limit)
+      }
+      else if (search){
+        return await Snippet.find({ language: search }).sort({ createdAt: -1 }).limit(10)
       }
       else {
         return await Snippet.find().sort({ createdAt: -1 }).limit(10);

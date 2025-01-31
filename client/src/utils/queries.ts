@@ -14,15 +14,15 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_SNIPPETS = gql`
-    query snippets {
-        snippets {
+    query snippets($limit: Int, $search: String) {
+        snippets(limit: $limit, search: $search) {
             _id
             author
-            title
-            summary
-            language
-            text
             createdAt
+            language
+            summary
+            text
+            title
         }
     }
 `;
