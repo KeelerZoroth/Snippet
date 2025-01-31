@@ -10,6 +10,7 @@ import { ObjectId } from 'mongoose'
 import { SearchBar } from '../components/SearchBar';
 import { useEffect, useState } from 'react';
 
+
 const Container = styled.div`
   margin-top: 60px;
   width: 80%;
@@ -85,7 +86,7 @@ const MakeSnippet = styled.ul`
 
 const Home = () => {
 
-    const { loading, data } = useQuery(QUERY_SNIPPETS);
+    const { loading, data, refetch } = useQuery(QUERY_SNIPPETS);
 
     const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
         // If the backend removes the snippet, Apollo Client will update the cache automatically
@@ -103,7 +104,7 @@ const Home = () => {
 
     return (
         <Container>
-            <SearchBar/>
+            <SearchBar {...{refetchQuery: refetch}}/>
             <Header>Check out some snippets below!</Header>
             {isLoggedIn && (<MakeSnippet>
                 <Link to="/scan-snippet">Add Snippet</Link>
