@@ -11,6 +11,40 @@ interface SnippetPostProps extends SnippetPostData {
     onDelete: (id: ObjectId) => void;
 }
 
+const Card = styled.div`
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    background: white;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+`;
+
+const CardText = styled.p`
+     font-size: 1rem;
+     color: #666;
+     padding: 0.5rem;
+     `;
+
+const CodeBlock = styled.p`
+     font-size: 1rem;
+     color: #666;
+     padding: 0.5rem;
+     border-width: 1px;
+     border-style: solid;
+        border-color: #333333;
+     `;
+
+const Button = styled.button<{ primary?: boolean }>`
+      background: transparent;
+      `
+
 const SnippetPost = ({ id, text, title, summary, language, author }: SnippetPostProps) => {
 
     const [deleteSnippetPost] = useMutation(REMOVE_SNIPPET);
@@ -29,39 +63,7 @@ const SnippetPost = ({ id, text, title, summary, language, author }: SnippetPost
    
 
 
-    const Card = styled.div`
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 300px;
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
-    background: white;
-
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-`;
-
-    const CardText = styled.p`
-     font-size: 1rem;
-     color: #666;
-     padding: 0.5rem;
-     `;
-
-    const CodeBlock = styled.p`
-     font-size: 1rem;
-     color: #666;
-     padding: 0.5rem;
-     border-width: 1px;
-     border-style: solid;
-        border-color: #333333;
-     `;
-
-    const Button = styled.button<{ primary?: boolean }>`
-      background: transparent;
-      `
+    
 
     return (
         <Card>

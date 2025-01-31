@@ -8,19 +8,9 @@ import { QUERY_SNIPPETS } from "../utils/queries";
 import { useQuery } from "@apollo/client";
 import { ObjectId } from 'mongoose'
 import { SearchBar } from '../components/SearchBar';
+import { useEffect, useState } from 'react';
 
-
-const Home = () => {
-
-    const { loading, data } = useQuery(QUERY_SNIPPETS);
-
-    const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
-        // If the backend removes the snippet, Apollo Client will update the cache automatically
-        console.log(`Deleted snippet ID: ${deletedSnippetId}`);
-    };
-
-
-    const Container = styled.div`
+const Container = styled.div`
   margin-top: 60px;
   width: 80%;
   padding: 1rem;
@@ -29,25 +19,29 @@ const Home = () => {
   display: flex;
   flex-direction: column;
   overflow-y: auto; /* Enable scrolling */
+  border-radius: 12px; /* Slightly round the corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 `;
 
-    const Header = styled.h1`
+const Header = styled.h1`
   font-size: 1.8rem;
   color: #333;
 `;
 
-    const CardsContainer = styled.div`
+const CardsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  align-items: flex-start; /* Ensures the height is based on the tallest card */
   gap: 20px;
   margin: 20px;
-  max-width: 1200px;
   flex-grow: 1; /* Allows it to take up remaining space */
-  overflow-y: visible; /* Make sure it does not clip the content */
+  overflow-y: visible; /* Ensures no clipping */
+  width: fit-content; /* Adjusts width to fit the content */
+  max-width: 100%; /* Prevents it from exceeding parent width */
 `;
 
-    const SnippetCard = styled.div`
+const SnippetCard = styled.div`
   background: #444444;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -68,12 +62,12 @@ const Home = () => {
   }
 `;
 
-    const MakeSnippet = styled.ul`
+const MakeSnippet = styled.ul`
   list-style: none;
   display: flex;
   gap: 1rem;
-  margin: 0;
-  padding: 0;
+  margin: 0.5;
+  padding: 0.5;
 
   li {
     a {
@@ -88,11 +82,30 @@ const Home = () => {
   }
 `;
 
+
+const Home = () => {
+
+    const { loading, data } = useQuery(QUERY_SNIPPETS);
+
+    const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
+        // If the backend removes the snippet, Apollo Client will update the cache automatically
+        console.log(`Deleted snippet ID: ${deletedSnippetId}`);
+    };
+
+    const [isLoggedIn, setIsLoggedIn] = useState(auth.loggedIn());
+
+    useEffect(() => {
+        const checkAuth = () => setIsLoggedIn(auth.loggedIn());
+
+        window.addEventListener('authChange', checkAuth);
+        return () => window.removeEventListener('authChange', checkAuth);
+    }, []);
+
     return (
         <Container>
             <SearchBar/>
             <Header>Check out some snippets below!</Header>
-            {auth.loggedIn() && (<MakeSnippet>
+            {isLoggedIn && (<MakeSnippet>
                 <Link to="/scan-snippet">Add Snippet</Link>
             </MakeSnippet>)}
             <CardsContainer>

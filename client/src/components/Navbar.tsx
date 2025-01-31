@@ -1,23 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../utils/auth';
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import TempSnippetLogo from '../../public/TempSnippetLogo.png';
 
-const Navbar = () => {
-    const [loginCheck, setLoginCheck] = useState(false);
 
-    const checkLogin = () => {
-        if (auth.loggedIn()) {
-            setLoginCheck(true);
-        }
-    };
-
-    useEffect(() => {
-        console.log(loginCheck);
-        checkLogin();
-    }, [loginCheck]);
-
-    const Button = styled.button`
+const Button = styled.button<{ primary: boolean }>`
       background: transparent;
   border-radius: 3px;
   border: 2px solid #BF4F74;
@@ -25,11 +13,11 @@ const Navbar = () => {
   margin: 0.5em 1em;
   padding: 0.25em 1em;
 
+  ${props => props.primary && css`
+    background: #BF4F74;
+    color: white;
+  `}
 `;
-  // ${props => props.$primary && css`
-  //   background: #BF4F74;
-  //   color: white;
-  // `}
 
 const Container = styled.div`
 position: fixed;
@@ -47,13 +35,26 @@ position: fixed;
   z-index: 1000;
 `;
 
-    const Logo = styled.div`
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
+
+  img {
+    width: 20px; /* Adjust width */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between logo and text */
+  }
+
+  a {
+    color: #646CFF;
+    text-decoration: none;
+  }
 `;
 
 
-    const NavLinks = styled.ul`
+const NavLinks = styled.ul`
   list-style: none;
   display: flex;
   gap: 1rem;
@@ -73,11 +74,30 @@ position: fixed;
   }
 `;
 
+
+const Navbar = () => {
+    const [loginCheck, setLoginCheck] = useState(false);
+
+    const checkLogin = () => {
+        if (auth.loggedIn()) {
+            setLoginCheck(true);
+        }
+    };
+
+    useEffect(() => {
+        console.log(loginCheck);
+        checkLogin();
+    }, [loginCheck]);
+
+   
     return (
 
         <Container>
-            <Logo>
-                <Link to="/">Snippet</Link>
+            <Logo>    
+                <Link to="/">
+                <img src={TempSnippetLogo} alt="Logo" />
+                Snippet
+                </Link>
             </Logo>
             <div>
                 {!loginCheck ? (
@@ -87,15 +107,7 @@ position: fixed;
                         </NavLinks>
                     </div>
                 ) : (
-
                     <>
-                        <Button>
-                            <NavLinks>
-                                <li>
-                                    <Link to="/">Home</Link>
-                                </li>
-                            </NavLinks>
-                            </Button>
                         <Button
                             onClick={() => {
                                 auth.logout();
