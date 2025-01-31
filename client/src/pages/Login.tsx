@@ -6,15 +6,14 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import { useNavigate } from "react-router-dom";
 import auth from "../utils/auth";
+import { Link } from "react-router-dom";
 
 
-const speak = (message: string) => {
-    const utterance = new SpeechSynthesisUtterance(message);
-    utterance.lang = "en-US";
-    speechSynthesis.speak(utterance);
-};
+
+
 
 const Login = () => {
+    const [isVoiceEnabled, setIsVoiceEnabled] = useState(false); // Control AI voice
     const [userFormData, setUserFormData] = useState({
         username: "",
         password: "",
@@ -22,6 +21,14 @@ const Login = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [loginUser] = useMutation(LOGIN_USER);
     const navigate = useNavigate();
+
+    const speak = (message: string) => {
+        if (!isVoiceEnabled) return;  // Skip if voice is disabled
+
+        const utterance = new SpeechSynthesisUtterance(message);
+        utterance.lang = "en-US";
+        speechSynthesis.speak(utterance);
+    };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -132,6 +139,16 @@ const Login = () => {
 
     return (
         <div className="login-container">
+            <div className="voice-toggle">
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={isVoiceEnabled}
+                        onChange={() => setIsVoiceEnabled((prev) => !prev)} // Toggle voice enable/disable
+                    />
+                    {isVoiceEnabled ? "Disable AI Voice" : "Enable AI Voice"}
+                </label>
+            </div>
             <canvas ref={canvasRef} className="stars-canvas"></canvas>
             <div className="parallax-layer"></div>
             <div className="login-box">
@@ -145,7 +162,7 @@ const Login = () => {
                         value={userFormData.username}
                         required
                         placeholder="Username"
-                        onFocus={() => speak("Enter your username")}
+                        onFocus={() => { if (isVoiceEnabled) speak("Enter your username"); }}  // Check voice state
                     />
                     {showAlert && <p>Username is required!</p>}
 
@@ -156,7 +173,7 @@ const Login = () => {
                         value={userFormData.password}
                         required
                         placeholder="Password"
-                        onFocus={() => speak("Enter your password")}
+                        onFocus={() => { if (isVoiceEnabled) speak("Enter your password"); }}  // Check voice state
                     />
                     {showAlert && <p>Password is required!</p>}
 
@@ -164,10 +181,11 @@ const Login = () => {
                         type="submit"
                         disabled={!(userFormData.username && userFormData.password)}
                         className="login-button"
-                        onClick={() => speak("Logging in...")}
+                        onClick={() => { if (isVoiceEnabled) speak("Logging in...")}}
                     >
                         Login
                     </button>
+                    <Link to="/signup">Don't have an account? Sign up here!</Link>
                 </form>
             </div>
         </div>

@@ -30,7 +30,7 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(true); // Control AI voice
+  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false); // Control AI voice
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [addUser] = useMutation(ADD_USER);
   const navigate = useNavigate();
