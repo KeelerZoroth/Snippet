@@ -24,10 +24,7 @@ export const SearchBar = ({refetchQuery}: {refetchQuery: any}) => {
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         try {
-            console.log("start")
             refetchQuery({search});
-            console.log(refetchQuery)
-            console.log("end")
         } catch (err) {
             console.error(err)
         }
