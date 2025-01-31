@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { QUERY_SNIPPETS } from "../utils/queries";
 import { SnippetPostData } from "../interfaces/SnippetPostData";
