@@ -1,36 +1,18 @@
 
-import { useState, useEffect } from "react";
 import styled from 'styled-components'
 import auth from '../utils/auth';
 import { Link } from "react-router-dom";
-import ErrorPage from "./ErrorPage";
 import SnippetPost from "../components/SnippetPost";
 import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { QUERY_SNIPPETS } from "../utils/queries";
-import { useQuery} from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { ObjectId } from 'mongoose'
+import { SearchBar } from '../components/SearchBar';
 
 
 const Home = () => {
 
-    const [loginCheck, setLoginCheck] = useState(false);
-    
-        const checkLogin = () => {
-            if (auth.loggedIn()) {
-                setLoginCheck(true);
-            }
-        };
-    
-        useEffect(() => {
-            console.log(loginCheck);
-            checkLogin();
-        }, [loginCheck]);
-
-
-    const { loading, error, data } = useQuery(QUERY_SNIPPETS);
-
-    if (loading) return <p>Loading snippets...</p>;
-    if (error) return <ErrorPage />;
+    const { loading, data } = useQuery(QUERY_SNIPPETS);
 
     const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
         // If the backend removes the snippet, Apollo Client will update the cache automatically
@@ -57,10 +39,9 @@ const Home = () => {
     const CardsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   gap: 20px;
-  padding: 20px;
-  width: 100%;
+  margin: 20px;
   max-width: 1200px;
   flex-grow: 1; /* Allows it to take up remaining space */
   overflow-y: visible; /* Make sure it does not clip the content */
@@ -109,32 +90,25 @@ const Home = () => {
 
     return (
         <Container>
-            {loginCheck ? (
-                <>
-                    <Header>Check out some snippets below!</Header>
-                    <MakeSnippet>
-                        <Link to="/ScanSnippet">Add Snippet</Link>
-                    </MakeSnippet>
-                    <CardsContainer>
-                        {data.snippets.map((snippetPost: SnippetPostData) => (
-                            <SnippetCard key={snippetPost.id.toString()}>
-                                <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
-                            </SnippetCard>
-                        ))}
-                    </CardsContainer>
-                </>
-            ) : (
-                <>
-                    <Header>Check out some snippets below! Log in to add your own!</Header>
-                    <CardsContainer>
-                        {data.snippets.map((snippetPost: SnippetPostData) => (
-                            <SnippetCard key={snippetPost.id.toString()}>
-                                <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
-                            </SnippetCard>
-                        ))}
-                    </CardsContainer>
-                </>
-            )}
+            <SearchBar/>
+            <Header>Check out some snippets below!</Header>
+            {auth.loggedIn() && (<MakeSnippet>
+                <Link to="/scan-snippet">Add Snippet</Link>
+            </MakeSnippet>)}
+            <CardsContainer>
+                { loading ? (
+                    <div>
+                        <p>loading...</p>
+                    </div>
+                ) : (
+                    <>
+                    {data.snippets.map((snippetPost: SnippetPostData, indexKey: number) => (
+                        <SnippetCard key={indexKey}>
+                            <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
+                        </SnippetCard>
+                    ))}
+                </>)}
+            </CardsContainer>
         </Container>
     );
 

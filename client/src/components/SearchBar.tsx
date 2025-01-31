@@ -38,16 +38,13 @@ const Form = styled.form`
     `
 
 const Label = styled.label`
-    width: 800px;
     background: black;
     `
 const SearchInput = styled.input`
-    margin: 0 auto;
-    width: 800px;
     height: 30px
     `
 const Button = styled.button`
-    width: 800px
+    width: 100%
     `
 
 export const SearchBar: React.FC = () => {

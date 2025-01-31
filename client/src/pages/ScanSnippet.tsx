@@ -3,6 +3,7 @@ import { type FormEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
 
 import { ADD_SNIPPET } from "../utils/mutations";
+import auth from "../utils/auth";
 
 const ScanSnippet = () => {
     const [codeTitle, setCodeTitle] = useState("Title");
@@ -79,28 +80,33 @@ const ScanSnippet = () => {
 
     
     return (
-        <div style={styles.mainDiv}>
-            <section style={styles.snippetModule}>
-                <h1>{!loading ? codeTitle : "..."}</h1>
-                <form style={styles.form} onSubmit={handleSubmit}>
-                    <textarea 
-                        style={styles.codeText}
-                        value={codeText}
-                        placeholder="Input code here..."  
-                        autoComplete='off' 
-                        spellCheck='false' 
-                        autoCorrect='off' 
-                        maxLength={800}
-                        onChange={(e) => setCodeText(e.target.value)}
-                    />
-                    <input style={styles.inputSubmit} type="submit" value="Examine Code"/>
-                </form>
-                <p className="code-summary">
-                    {!loading ? codeSummary: "loading..."}
-                </p>
-            </section>
-        </div>
-    );
+        <>
+            {!auth.loggedIn() ? (
+                <h1>Please Login</h1>
+            ) : (
+            <div style={styles.mainDiv}>
+                <section style={styles.snippetModule}>
+                    <h1>{!loading ? codeTitle : "..."}</h1>
+                    <form style={styles.form} onSubmit={handleSubmit}>
+                        <textarea 
+                            style={styles.codeText}
+                            value={codeText}
+                            placeholder="Input code here..."  
+                            autoComplete='off' 
+                            spellCheck='false' 
+                            autoCorrect='off' 
+                            maxLength={800}
+                            onChange={(e) => setCodeText(e.target.value)}
+                        />
+                        <input style={styles.inputSubmit} type="submit" value="Examine Code"/>
+                    </form>
+                    <p className="code-summary">
+                        {!loading ? codeSummary: "loading..."}
+                    </p>
+                </section>
+            </div>)}
+        </>
+    )
 }
 
 export default ScanSnippet;
