@@ -12,7 +12,7 @@ import { SearchBar } from '../components/SearchBar';
 
 const Home = () => {
 
-    const { loading, data } = useQuery(QUERY_SNIPPETS);
+    const { loading, data, refetch } = useQuery(QUERY_SNIPPETS);
 
     const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
         // If the backend removes the snippet, Apollo Client will update the cache automatically
@@ -90,7 +90,7 @@ const Home = () => {
 
     return (
         <Container>
-            <SearchBar/>
+            <SearchBar {...{refetchQuery: refetch}}/>
             <Header>Check out some snippets below!</Header>
             {auth.loggedIn() && (<MakeSnippet>
                 <Link to="/scan-snippet">Add Snippet</Link>
