@@ -46,7 +46,7 @@ const resolvers = {
     },
     snippets: async (_parent: any, { limit, search }: SnippetsArgs) => {
       if (limit && search){
-        return await Snippet.find({ language: search }).sort({ createdAt: -1 }).limit(limit)
+        return await Snippet.find().or([{language: search}, {title: search}, {author: search}]).sort({ createdAt: -1 }).limit(limit)
       }
       else if (limit){
         return await Snippet.find().sort({ createdAt: -1 }).limit(limit)
