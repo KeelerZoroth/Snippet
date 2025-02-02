@@ -32,7 +32,7 @@ function App() {
 
   const styles: {[key: string]: React.CSSProperties} = {
     main: {
-      padding: "70px 0px 60px 0px",
+      padding: "80px 0px 60px 0px",
       // backgroundColor: '#DCDCF5',
       width: "100%",
       position: "absolute",
