@@ -6,7 +6,6 @@ import SnippetPost from "../components/SnippetPost";
 import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { QUERY_SNIPPETS } from "../utils/queries";
 import { useQuery } from "@apollo/client";
-import { ObjectId } from 'mongoose'
 import { SearchBar } from '../components/SearchBar';
 import { useEffect, useState } from 'react';
 
