@@ -104,6 +104,7 @@ const Home = () => {
         const checkAuth = () => setIsLoggedIn(auth.loggedIn());
 
         window.addEventListener('authChange', checkAuth);
+        refetch()
         return () => window.removeEventListener('authChange', checkAuth);
     }, []);
 
