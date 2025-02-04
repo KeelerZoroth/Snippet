@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import auth from '../utils/auth';
 import styled from 'styled-components'
-import TempSnippetLogo from '../../public/TempSnippetLogo.png';
+import TempSnippetLogo from '/TempSnippetLogo.png';
 
 
 const Button = styled.button`
-      background: transparent;
-  border-radius: 3px;
-  border: 2px solid #BF4F74;
-  color: #BF4F74;
-  margin: 0.5em 1em;
-  padding: 0.25em 1em;
+  background: transparent;
+  border-radius: 5px;
+  border: 2px solid #646CFF;
+  color: #CF7FD4;
+  padding: 0.25em 0.75em;
 `;
 
 const Container = styled.div`
-position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: 80px;
   background-color: #333;
   color: white;
   display: flex;
@@ -71,22 +71,17 @@ const NavLinks = styled.ul`
 
 
 const Navbar = () => {
-    const [loginCheck, setLoginCheck] = useState(false);
+  const navigate = useNavigate();
 
-    const checkLogin = () => {
-        if (auth.loggedIn()) {
-            setLoginCheck(true);
-        }
-    };
-
-    useEffect(() => {
-        console.log(loginCheck);
-        checkLogin();
-    }, [loginCheck]);
+  const handleLoginLogout = () => {
+    if(auth.loggedIn()){
+      auth.logout();
+    }
+    navigate("/login");
+  };
 
    
     return (
-
         <Container>
             <Logo>    
                 <Link to="/">
@@ -94,25 +89,11 @@ const Navbar = () => {
                 Snippet
                 </Link>
             </Logo>
-            <div>
-                {!loginCheck ? (
-                    <div>
-                        <NavLinks>
-                            <Link to="/login">Login/Sign Up</Link>
-                        </NavLinks>
-                    </div>
-                ) : (
-                    <>
-                        <Button
-                            onClick={() => {
-                                auth.logout();
-                            }}
-                        >
-                            Logout
-                        </Button>
-                    </>
-                )}
-            </div>
+              <NavLinks>
+                <Button onClick={handleLoginLogout}>
+                  {auth.loggedIn() ? 'Logout' : 'Login'}
+                </Button>
+              </NavLinks>
         </Container>
     );
 };
