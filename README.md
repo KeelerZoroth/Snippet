@@ -28,7 +28,7 @@ Follow this link to the [Deployed App](https://snippet-vzjo.onrender.com/)
 
 Login to use all features.  Search for snippets by title, language, or author.  Or create your own.  AI will analyze the code and create a title and summary.  Now all of your code snippets are in one place!!
 
-to run locally:  After installing dependencies and building the dist folders, create a .env file in the server folder.  You need MONGODB_URI, JWT_SECRET_KEY, and OPENAI_API_KEY environment variables.  Then run `npm run start:dev` from the root folder.  The site will be served at http://localhost:3000.  To use GraphQL sandbox, visit http://localhost:3001/graphql.
+to run locally:  After installing dependencies and building the dist folders, create a .env file in the server folder.  You need MONGODB_URI, JWT_SECRET_KEY, and OPENAI_API_KEY environment variables.  Then run `npm run start` from the root folder.  The site will be served at http://localhost:3000.  To use GraphQL sandbox, visit http://localhost:3001/graphql.
 
 ## <a name="license"></a>License
 
@@ -46,7 +46,3 @@ Contributors:
 
 
 If you wish to contribute, please follow these [guidelines](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).
-
-## <a name="questions"></a>Questions
-
-If you have questions you can reach me at me@joshhensley.com. Add me on [Github](github.com/josh-hensley).
