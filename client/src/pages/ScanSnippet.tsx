@@ -3,6 +3,7 @@ import { type FormEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
 
 import { ADD_SNIPPET } from "../utils/mutations";
+import { QUERY_SNIPPETS } from "../utils/queries";
 import auth from "../utils/auth";
 
 const ScanSnippet = () => {
@@ -11,11 +12,9 @@ const ScanSnippet = () => {
     const [codeSummary, setCodeSummary] = useState("Summary");
 
 
-    const [addSnippet, { loading }] = useMutation(ADD_SNIPPET)
+    const [addSnippet, { loading }] = useMutation(ADD_SNIPPET, {refetchQueries:[QUERY_SNIPPETS]})
     
-
-
-
+    
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
     

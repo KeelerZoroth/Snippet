@@ -1,13 +1,9 @@
 import auth from "../utils/auth";
-import { SnippetPostData } from '../interfaces/SnippetPostData';
 import styled from 'styled-components';
 import { REMOVE_SNIPPET } from '../utils/mutations';
 import { useMutation } from "@apollo/client";
-import { ObjectId } from 'mongoose'
-
-interface SnippetPostProps extends SnippetPostData {
-    onDelete: (id: ObjectId) => void;
-}
+import { SnippetPostData } from "../interfaces/SnippetPostData";
+import { QUERY_SNIPPETS } from "../utils/queries";
 
 const Card = styled.div`
     border-radius: 12px;
@@ -68,13 +64,19 @@ const CodeBlock = styled.p`
      border-color: #333333;
      text-align: left;
      `;
+const P = styled.p`
+    font-size: 1rem;
+    color: #666;
+    padding: 0.5rem;
+`
 
 const Button = styled.button<{ primary?: boolean }>`
       `
 
-const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPostProps) => {
+const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPostData) => {
 
-    const [deleteSnippetPost] = useMutation(REMOVE_SNIPPET);
+    const [deleteSnippetPost, { data, loading, error }] = useMutation(REMOVE_SNIPPET, {refetchQueries:[QUERY_SNIPPETS]});
+    console.log(_id)
 
     const deleteSnippet = async () => {
         try {
@@ -101,7 +103,12 @@ const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPos
                 <CardLanguage>{language}</CardLanguage>
                 <CardAuthor>{author}</CardAuthor>
             </CardSubblock>
-            {auth.loggedIn() && auth.getProfile().data.username === author ? <Button onClick={deleteSnippet}>Delete</Button> : <span></span>}
+            {auth.loggedIn() && auth.getProfile().data.username === author ? 
+            loading ? <P>Loading...</P> :
+            error ? <P>{error.message}</P> :
+            data ? <P>deleted</P> :
+            <Button onClick={deleteSnippet}>Delete</Button> :
+             <span></span>}
         </Card>
     )
 

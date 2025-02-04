@@ -131,20 +131,23 @@ const resolvers = {
       ('You need to be logged in!');
     },
     removeSnippet: async (_parent: any, { snippetId }: SnippetArgs, context: any) => {
+      console.log('Remove snippet method:')
       if (context.user) {
+        console.log('User Exists!!')
         const snippet = await Snippet.findOneAndDelete({
           _id: snippetId,
-          snippetAuthor: context.user.username,
         });
+        console.log('Snippet deleted!')
 
-        if(!snippet){
-          throw AuthenticationError;
-        }
+        // if(!snippet){
+        //   throw AuthenticationError;
+        // }
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { snippets: snippet._id } }
+          { $pull: { snippets: snippet!._id } }
         );
+        console.log('User updated!')
 
         return snippet;
       }

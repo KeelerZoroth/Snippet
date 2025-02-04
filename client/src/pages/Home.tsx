@@ -6,7 +6,6 @@ import SnippetPost from "../components/SnippetPost";
 import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { QUERY_SNIPPETS } from "../utils/queries";
 import { useQuery } from "@apollo/client";
-import { ObjectId } from 'mongoose'
 import { SearchBar } from '../components/SearchBar';
 import { useEffect, useState } from 'react';
 
@@ -94,17 +93,13 @@ const Home = () => {
 
     const { loading, data, refetch } = useQuery(QUERY_SNIPPETS);
 
-    const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
-        // If the backend removes the snippet, Apollo Client will update the cache automatically
-        console.log(`Deleted snippet ID: ${deletedSnippetId}`);
-    };
-
     const [isLoggedIn, setIsLoggedIn] = useState(auth.loggedIn());
 
     useEffect(() => {
         const checkAuth = () => setIsLoggedIn(auth.loggedIn());
 
         window.addEventListener('authChange', checkAuth);
+        refetch()
         return () => window.removeEventListener('authChange', checkAuth);
     }, []);
 
@@ -129,7 +124,7 @@ const Home = () => {
                     <>
                     {data.snippets.map((snippetPost: SnippetPostData, indexKey: number) => (
                         <SnippetCard key={indexKey}>
-                            <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
+                            <SnippetPost {...snippetPost} />
                         </SnippetCard>
                     ))}
                 </>)}
