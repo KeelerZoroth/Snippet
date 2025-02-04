@@ -61,6 +61,11 @@ const SnippetCard = styled.div`
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
+
+  @media screen and (max-width: 390px){
+        position: relative;
+        left: -10px
+    }
 `;
 
 const MakeSnippet = styled.ul`

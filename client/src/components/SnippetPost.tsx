@@ -24,25 +24,60 @@ const Card = styled.div`
         transform: translateY(-5px);
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
+
+    @media screen and (max-width: 390px){
+        display: flex;
+        flex-direction: column;
+        height: 400px;
+    }
 `;
 
 const CardTitle = styled.h2`
-    color: 666;
+    color: #666;
 `
 
-const CardText = styled.p`
+const CardSummary = styled.p`
+    font-size: 1rem;
+    color: #666;
+    padding: 0.5rem;
+
+    @media screen and (max-width:390px){
+        display: none;
+    }
+`
+const CardLanguage = styled.p`
+    font-size: 1rem;
+    color: #666;
+    padding: 0.5rem;
+
+    @media screen and (max-width:390px){
+        position: relative;
+        padding: 0;
+        left: -30%
+    }
+`;
+const CardAuthor = styled.p`
      font-size: 1rem;
      color: #666;
      padding: 0.5rem;
+
+     @media screen and (max-width:390px){
+        position: relative;
+        padding: 0;
+        top: -55px;
+        left: 30%;
+    }
      `;
+
 
 const CodeBlock = styled.p`
      font-size: 1rem;
-     color: #666;
+     color: #FFF;
+     background: #666;
      padding: 0.5rem;
      border-width: 1px;
      border-style: solid;
-        border-color: #333333;
+     border-color: #333333;
      `;
 
 const Button = styled.button<{ primary?: boolean }>`
@@ -64,19 +99,19 @@ const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPos
             console.error(error);
         }
     }
-   
 
 
-    
+
+
 
     return (
         <Card>
             <CardTitle>{title}</CardTitle>
             <CodeBlock>{text}</CodeBlock>
-            <CardText>{summary}</CardText>
-            <CardText>{language}</CardText>
-            <CardText>{author}</CardText>
-            {auth.loggedIn() && auth.getProfile().data.username === author ? <Button onClick={deleteSnippet}>Delete</Button> : <span></span> }
+            <CardSummary>{summary}</CardSummary>
+            <CardLanguage>{language}</CardLanguage>
+            <CardAuthor>{author}</CardAuthor>
+            {auth.loggedIn() && auth.getProfile().data.username === author ? <Button onClick={deleteSnippet}>Delete</Button> : <span></span>}
         </Card>
     )
 
