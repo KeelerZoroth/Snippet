@@ -130,7 +130,7 @@ const Home = () => {
                     <>
                     {data.snippets.map((snippetPost: SnippetPostData, indexKey: number) => (
                         <SnippetCard key={indexKey}>
-                            <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
+                            <SnippetPost {...snippetPost} />
                         </SnippetCard>
                     ))}
                 </>)}
