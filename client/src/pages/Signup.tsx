@@ -4,6 +4,7 @@ import HoloRedFace from "../components/HoloRedFace";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import { useNavigate } from "react-router-dom";
+import auth from "../utils/auth";
 
 let cachedVoice: SpeechSynthesisVoice | null = null;
 
@@ -153,7 +154,7 @@ const Signup = () => {
       if (!data) throw new Error("Something went wrong!");
 
       const { token } = data.addUser;
-      localStorage.setItem("auth_token", token);
+      auth.login(token);
 
       speak("Signup successful");
       setTimeout(() => navigate("/"), 1000);

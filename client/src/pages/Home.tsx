@@ -71,6 +71,7 @@ const SnippetCard = styled.div`
 const MakeSnippet = styled.ul`
   list-style: none;
   display: flex;
+  justify-content: center;
   gap: 1rem;
   margin: 0.5;
   padding: 0.5;
@@ -110,11 +111,16 @@ const Home = () => {
 
     return (
         <Container>
+          {isLoggedIn && (<>
+            <MakeSnippet style={{padding: "0", margin: "5px",}}>
+                <Link to="/scan-snippet">Scan your own code Snippet</Link>
+            </MakeSnippet>
+            <p style={{color: "#333333"}}>- or -</p>
+            </>
+            )}
             <SearchBar {...{refetchQuery: refetch}}/>
             <Header>Check out some snippets below!</Header>
-            {isLoggedIn && (<MakeSnippet>
-                <Link to="/scan-snippet">Add Snippet</Link>
-            </MakeSnippet>)}
+            
             <CardsContainer>
                 { loading ? (
                     <div>
