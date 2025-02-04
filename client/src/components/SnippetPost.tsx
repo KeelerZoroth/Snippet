@@ -26,6 +26,10 @@ const Card = styled.div`
     }
 `;
 
+const CardTitle = styled.h2`
+    color: 666;
+`
+
 const CardText = styled.p`
      font-size: 1rem;
      color: #666;
@@ -67,7 +71,7 @@ const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPos
 
     return (
         <Card>
-            <h2>{title}</h2>
+            <CardTitle>{title}</CardTitle>
             <CodeBlock>{text}</CodeBlock>
             <CardText>{summary}</CardText>
             <CardText>{language}</CardText>
