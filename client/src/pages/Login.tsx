@@ -13,7 +13,9 @@ import { Link } from "react-router-dom";
 
 
 const Login = () => {
-    const [isVoiceEnabled, setIsVoiceEnabled] = useState(false); // Control AI voice
+    const [isVoiceEnabled, setIsVoiceEnabled] = useState<boolean>(() => {
+        return localStorage.getItem("voiceEnabled") === "true"; // saves settings for ai voice in local storage
+    }); // Control AI voice
     const [userFormData, setUserFormData] = useState({
         username: "",
         password: "",
@@ -137,6 +139,13 @@ const Login = () => {
         };
     }, []);
 
+    const toggleVoice = () => {
+        const newVoiceState = !isVoiceEnabled;
+        setIsVoiceEnabled(newVoiceState);
+        localStorage.setItem("voiceEnabled", JSON.stringify(newVoiceState)); // Save settings to local storage
+    };
+
+
     return (
         <div className="login-container">
             <div className="voice-toggle">
@@ -144,7 +153,7 @@ const Login = () => {
                     <input
                         type="checkbox"
                         checked={isVoiceEnabled}
-                        onChange={() => setIsVoiceEnabled((prev) => !prev)} // Toggle voice enable/disable
+                        onChange={toggleVoice} // ai voice toggle
                     />
                     {isVoiceEnabled ? "Disable AI Voice" : "Enable AI Voice"}
                 </label>
