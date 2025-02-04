@@ -1,7 +1,5 @@
 import auth from "../utils/auth";
-// import { Link } from 'react-router-dom';
 import { SnippetPostData } from '../interfaces/SnippetPostData';
-// import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { REMOVE_SNIPPET } from '../utils/mutations';
 import { useMutation } from "@apollo/client";
@@ -25,15 +23,18 @@ const Card = styled.div`
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
-    @media screen and (max-width: 390px){
+    @media screen and (max-width: 490px){
         display: flex;
         flex-direction: column;
-        height: 400px;
     }
 `;
 
 const CardTitle = styled.h2`
     color: #666;
+`
+const CardSubblock = styled.div`
+    display: flex;
+    justify-content: space-around;
 `
 
 const CardSummary = styled.p`
@@ -41,7 +42,7 @@ const CardSummary = styled.p`
     color: #666;
     padding: 0.5rem;
 
-    @media screen and (max-width:390px){
+    @media screen and (max-width:490px){
         display: none;
     }
 `
@@ -49,24 +50,11 @@ const CardLanguage = styled.p`
     font-size: 1rem;
     color: #666;
     padding: 0.5rem;
-
-    @media screen and (max-width:390px){
-        position: relative;
-        padding: 0;
-        left: -30%
-    }
 `;
 const CardAuthor = styled.p`
      font-size: 1rem;
      color: #666;
      padding: 0.5rem;
-
-     @media screen and (max-width:390px){
-        position: relative;
-        padding: 0;
-        top: -55px;
-        left: 30%;
-    }
      `;
 
 
@@ -78,10 +66,10 @@ const CodeBlock = styled.p`
      border-width: 1px;
      border-style: solid;
      border-color: #333333;
+     text-align: left;
      `;
 
 const Button = styled.button<{ primary?: boolean }>`
-      background: transparent;
       `
 
 const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPostProps) => {
@@ -109,8 +97,10 @@ const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPos
             <CardTitle>{title}</CardTitle>
             <CodeBlock>{text}</CodeBlock>
             <CardSummary>{summary}</CardSummary>
-            <CardLanguage>{language}</CardLanguage>
-            <CardAuthor>{author}</CardAuthor>
+            <CardSubblock>
+                <CardLanguage>{language}</CardLanguage>
+                <CardAuthor>{author}</CardAuthor>
+            </CardSubblock>
             {auth.loggedIn() && auth.getProfile().data.username === author ? <Button onClick={deleteSnippet}>Delete</Button> : <span></span>}
         </Card>
     )
