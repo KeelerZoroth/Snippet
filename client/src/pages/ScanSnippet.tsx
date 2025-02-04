@@ -98,7 +98,7 @@ const ScanSnippet = () => {
                             autoComplete='off' 
                             spellCheck='false' 
                             autoCorrect='off' 
-                            maxLength={800}
+                            maxLength={2000}
                             onChange={(e) => setCodeText(e.target.value)}
                         />
                         <input style={styles.inputSubmit} type="submit" value="Examine Code"/>

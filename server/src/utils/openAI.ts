@@ -23,7 +23,7 @@ if (apiKey) {
 // With a `StructuredOutputParser` we can define a schema for the output.
 const parser = StructuredOutputParser.fromNamesAndDescriptions({
   title: "Title of the code to get the over all meaning of the code",
-  summary: 'A summary of the code provided that is easy to understand and under 800 characters',
+  summary: 'A summary of the code provided that is easy to understand and under 1000 characters',
   language: "Check what the programming language it is and give just its name, and if you don't know the language or it isn't a programming language then just do \"Unkown\"",
   functional: "This will have two possible values, \"TRUE\" if the submitted code works, or \"FALSE\" if the submitted code throws errors or non-functional in some way",
 });
