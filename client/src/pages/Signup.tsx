@@ -30,7 +30,9 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false); // Control AI voice
+  const [isVoiceEnabled, setIsVoiceEnabled] = useState<boolean>(() => {
+    return localStorage.getItem("voiceEnabled") === "true"; // saves settings for ai voice in local storage
+  }); // Control AI voice
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [addUser] = useMutation(ADD_USER);
   const navigate = useNavigate();
@@ -137,6 +139,8 @@ const Signup = () => {
       return;
     }
 
+    
+
     try {
       const { data } = await addUser({
         variables: {
@@ -165,6 +169,12 @@ const Signup = () => {
     }
   };
 
+  const toggleVoice = () => {
+    const newVoiceState = !isVoiceEnabled;
+    setIsVoiceEnabled(newVoiceState);
+    localStorage.setItem("voiceEnabled", JSON.stringify(newVoiceState)); // Save setting
+  };
+
   return (
     <div className="signup-container">
       <canvas ref={canvasRef} className="stars-canvas"></canvas>
@@ -175,7 +185,7 @@ const Signup = () => {
           <input
             type="checkbox"
             checked={isVoiceEnabled}
-            onChange={() => setIsVoiceEnabled((prev) => !prev)}
+            onChange={toggleVoice}
           />
           {isVoiceEnabled ? "Disable AI Voice" : "Enable AI Voice"}
         </label>
