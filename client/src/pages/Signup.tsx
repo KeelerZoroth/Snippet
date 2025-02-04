@@ -26,7 +26,6 @@ const preloadVoices = () => {
 const Signup = () => {
   const [userFormData, setUserFormData] = useState({
     username: "",
-    email: "",
     password: "",
     confirmPassword: "",
   });
@@ -146,7 +145,6 @@ const Signup = () => {
         variables: {
           input: {
             username: userFormData.username,
-            email: userFormData.email,
             password: userFormData.password,
           },
         },
@@ -160,7 +158,7 @@ const Signup = () => {
       speak("Signup successful");
       setTimeout(() => navigate("/"), 1000);
 
-      setUserFormData({ username: "", email: "", password: "", confirmPassword: "" });
+      setUserFormData({ username: "", password: "", confirmPassword: "" });
       setErrorMessage(null);
     } catch (err) {
       console.error(err);
@@ -205,15 +203,6 @@ const Signup = () => {
             onFocus={() => speak("Enter your username")}
           />
           <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={userFormData.email}
-            onChange={handleInputChange}
-            required
-            onFocus={() => speak("Enter your email")}
-          />
-          <input
             type="password"
             name="password"
             placeholder="Password"
@@ -239,7 +228,6 @@ const Signup = () => {
             disabled={
               !(
                 userFormData.username &&
-                userFormData.email &&
                 userFormData.password &&
                 userFormData.confirmPassword
               )
