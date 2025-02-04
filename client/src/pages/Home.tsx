@@ -94,11 +94,6 @@ const Home = () => {
 
     const { loading, data, refetch } = useQuery(QUERY_SNIPPETS);
 
-    const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
-        // If the backend removes the snippet, Apollo Client will update the cache automatically
-        console.log(`Deleted snippet ID: ${deletedSnippetId}`);
-    };
-
     const [isLoggedIn, setIsLoggedIn] = useState(auth.loggedIn());
 
     useEffect(() => {
