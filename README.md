@@ -14,8 +14,6 @@ This app uses Mongoose, Express.JS, React, Apollo, GraphQL, Langchain, and Node.
 * [Usage](#Usage)
 * [License](#License)
 * [Contributing](#Contributing)
-* [Tests](#Tests)
-* [Questions](#Questions)
  
 
 ## <a name="Installation"></a>Installation
