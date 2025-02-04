@@ -47,7 +47,7 @@ const Button = styled.button<{ primary?: boolean }>`
 
 const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPostProps) => {
 
-    const [deleteSnippetPost] = useMutation(REMOVE_SNIPPET);
+    const [deleteSnippetPost, { data, loading, error }] = useMutation(REMOVE_SNIPPET);
 
     const deleteSnippet = async () => {
         try {
@@ -72,7 +72,8 @@ const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPos
             <CardText>{summary}</CardText>
             <CardText>{language}</CardText>
             <CardText>{author}</CardText>
-            {auth.loggedIn() && auth.getProfile().data.username === author ? <Button onClick={deleteSnippet}>Delete</Button> : <span></span> }
+            {auth.loggedIn() && auth.getProfile().data.username === author ? <Button onClick={()=>{deleteSnippet()}}>Delete</Button> : <span></span> }
+            <p></p>
         </Card>
     )
 
