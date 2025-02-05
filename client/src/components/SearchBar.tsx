@@ -14,8 +14,6 @@ const glitchAnimation = keyframes`
     }
 `;
 
-import styled from "styled-components";
-
 // styled components
 const Form = styled.form`
     display: flex;
