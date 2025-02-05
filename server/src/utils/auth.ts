@@ -3,6 +3,7 @@ import { GraphQLError } from 'graphql';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// checks JWT against the secret key, returns user data
 export const authenticateToken = ({ req }: any) => {
   let token = req.body.token || req.query.token || req.headers.authorization;
 
@@ -24,6 +25,7 @@ export const authenticateToken = ({ req }: any) => {
   return req;
 };
 
+//  creates a valid token if username is found
 export const signToken = (username: string, _id: unknown) => {
   const payload = { username, _id };
   const secretKey: any = process.env.JWT_SECRET_KEY;

@@ -5,7 +5,9 @@
 ## Description
 
 Snippet is a full-stack app that uses AI to analyze and explain code.  Create a user login to use all features, or simply visit the home page and search via language, title, or author.
-This app uses Mongoose, Express.JS, React, Apollo, GraphQL, Langchain, and Node.JS.
+This app uses Mongoose, Express.JS, React, Apollo, GraphQL, Langchain and Open-AI, Styled-Components and Node.JS.
+
+![Snippet Screenshot](./Snippet_Screenshot.png)
 
 ## Table of Contents
 

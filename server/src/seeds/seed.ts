@@ -4,6 +4,8 @@ import cleanDB from './cleanDB.js';
 import userData from './userData.json' assert { type: 'json' };
 import snippetData from './snippetData.json' assert { type: 'json' };
 
+
+// Creates seed data for testing based on JSON files
 const seed = async () => {
     try {
         await db();
