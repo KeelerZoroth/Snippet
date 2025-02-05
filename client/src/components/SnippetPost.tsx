@@ -25,8 +25,8 @@ const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPos
             <p>{summary}</p>
 
             <div className="meta-info">
-                <span>{language}</span>
-                <span>By: {author}</span>
+                <p>{language}</p>
+                <p>By: {author}</p>
             </div>
 
             {auth.loggedIn() && auth.getProfile().data.username === author && (

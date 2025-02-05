@@ -175,8 +175,6 @@ const Login = () => {
                         placeholder="Username"
                         onFocus={() => { if (isVoiceEnabled) speak("Enter your username"); }}  // Check voice state
                     />
-                    {showAlert && <p>Username is required!</p>}
-
                     <input
                         type="password"
                         name="password"
@@ -186,7 +184,8 @@ const Login = () => {
                         placeholder="Password"
                         onFocus={() => { if (isVoiceEnabled) speak("Enter your password"); }}  // Check voice state
                     />
-                    {showAlert && <p>Password is required!</p>}
+
+                    {showAlert && <p className="error-message">Login failed. Please try agian</p>}
 
                     <button
                         type="submit"
