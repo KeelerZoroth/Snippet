@@ -11,18 +11,18 @@ import { Link } from "react-router-dom";
 
 
 
-
+// Login component
 const Login = () => {
     const [isVoiceEnabled, setIsVoiceEnabled] = useState<boolean>(() => {
         return localStorage.getItem("voiceEnabled") === "true"; // saves settings for ai voice in local storage
     }); // Control AI voice
-    const [userFormData, setUserFormData] = useState({
+    const [userFormData, setUserFormData] = useState({ // Form data
         username: "",
         password: "",
     });
-    const [showAlert, setShowAlert] = useState(false);
-    const [loginUser] = useMutation(LOGIN_USER);
-    const navigate = useNavigate();
+    const [showAlert, setShowAlert] = useState(false); // Alert state
+    const [loginUser] = useMutation(LOGIN_USER); // GraphQL mutation
+    const navigate = useNavigate(); // Navigation
 
     const speak = (message: string) => {
         if (!isVoiceEnabled) return;  // Skip if voice is disabled
@@ -32,11 +32,13 @@ const Login = () => {
         speechSynthesis.speak(utterance);
     };
 
+    // Handle input change for form
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setUserFormData({ ...userFormData, [name]: value });
     };
 
+    // Handle form submission
     const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {

@@ -6,24 +6,28 @@ import auth from "../utils/auth";
 import { useNavigate } from "react-router-dom";
 import "../assets/styles/scanSnippet.css";
 
+// ScanSnippet component that handles the code scanning and submission
 const ScanSnippet = () => {
     const [codeTitle, setCodeTitle] = useState("Title");
     const [codeText, setCodeText] = useState("");
     const [codeSummary, setCodeSummary] = useState("Summary");
 
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
+        
+    // GraphQL mutation to add a snippet
     const [addSnippet, { loading }] = useMutation(ADD_SNIPPET, {
         refetchQueries: [{ query: QUERY_SNIPPETS }],
     });
-
+    
+    // Handle form submission
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
             if (!codeText.trim()) {
                 return;
             }
-            const { data } = await addSnippet({
+            const { data } = await addSnippet({ // GraphQL mutation for adding a snippet
                 variables: {
                     input: {
                         text: codeText,

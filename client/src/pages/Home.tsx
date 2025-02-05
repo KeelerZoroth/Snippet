@@ -10,6 +10,7 @@ import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { useNavigate } from "react-router-dom";
 import auth from "../utils/auth"; // Import the authentication utility
 
+// Main component for the Home page
 const Home = () => {
   const starsRef = useRef<HTMLCanvasElement | null>(null);
   const navigate = useNavigate(); // Initialize navigation

@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
+
 const glitchAnimation = keyframes`
     0% {
         text-shadow: 2px 2px red, -2px -2px cyan;
@@ -13,6 +14,9 @@ const glitchAnimation = keyframes`
     }
 `;
 
+import styled from "styled-components";
+
+// styled components
 const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -76,8 +80,10 @@ export const SearchBar = ({ refetchQuery }: { refetchQuery: any }) => {
         } catch (err) {
             console.error(err);
         }
+
     };
 
+    // callback function to handle input change for search
     const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     }, []);

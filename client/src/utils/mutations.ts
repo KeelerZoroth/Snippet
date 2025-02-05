@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+// GraphQL mutations for user authentication and snippet management
 export const LOGIN_USER = gql`
     mutation login($username: String!, $password: String!) {
         login(username: $username, password: $password) {
