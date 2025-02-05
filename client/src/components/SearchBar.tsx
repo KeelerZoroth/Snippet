@@ -1,77 +1,96 @@
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import styled, { keyframes } from "styled-components";
 
-import styled from "styled-components";
-
+const glitchAnimation = keyframes`
+    0% {
+        text-shadow: 2px 2px red, -2px -2px cyan;
+    }
+    50% {
+        text-shadow: -2px 2px magenta, 2px -2px yellow;
+    }
+    100% {
+        text-shadow: 1px -1px green, -1px 1px blue;
+    }
+`;
 
 const Form = styled.form`
     display: flex;
     flex-direction: column;
+    align-items: center;
     background: #222;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
-    width: flex; 100%;
+    width: 100%;
+    max-width: 500px;
     color: #ddd;
 `;
 
-
 const SearchInput = styled.input`
-    height: 40px;
-    padding: 10px;
-    border: 1px solid #444;
-    border-radius: 8px;
-    background: #333;
-    color: #fff;
+    width: 100%;
+    padding: 12px;
     font-size: 1rem;
-    
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    outline: none;
+    transition: 0.3s ease;
+    border: 2px solid #646CFF;
+    box-shadow: 0 0 10px rgba(100, 108, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5);
+
     &:focus {
-        outline: none;
-        border-color: #777;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+        background: rgba(0, 0, 0, 0.9);
     }
 `;
 
 const Button = styled.button`
-    width: 100%;
-    border-radius: 8px;
-    padding: 12px;
-    margin-top: 15px;
-    background: #444;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background: black;
     color: white;
-    font-size: 1rem;
-    border: none;
+    font-size: 1.2rem;
+    border: 2px solid #646CFF;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
+    text-transform: uppercase;
+    animation: ${glitchAnimation} 2s infinite;
+    transition: 0.3s ease;
 
     &:hover {
-        background: #666;
+        background: #222;
+        border: 2px solid #CF7FD4;
     }
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const SearchBar = ({refetchQuery}: {refetchQuery: any}) => {
+export const SearchBar = ({ refetchQuery }: { refetchQuery: any }) => {
     const [search, setSearch] = useState<string>("");
 
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         try {
-            refetchQuery({search});
+            refetchQuery({ search });
         } catch (err) {
-            console.error(err)
+            console.error(err);
         }
-    }
+    };
 
     const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
-    }, [])
+    }, []);
 
     return (
         <Form onSubmit={handleSubmit}>
             <SearchInput
-                type='text'
-                placeholder='Search for a Language, Username, or Title...'
+                type="text"
+                placeholder="Search for a Language, Username, or Title..."
                 value={search}
-                onChange={handleChange} />
+                onChange={handleChange}
+            />
             <Button type="submit">Submit</Button>
         </Form>
-    )
-}
+    );
+};
