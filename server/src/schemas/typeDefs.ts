@@ -1,3 +1,5 @@
+
+// defines types for graphQL.  It's VERY PICKY.
 const typeDefs = `
   type User {
     _id: ID

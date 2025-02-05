@@ -1,5 +1,6 @@
 import { Snippet, User } from "../models/index.js";
 
+// Deletes all Snippets, Deletes all Users
 const cleanDB = async () => {
     try {
         await Snippet.deleteMany({});

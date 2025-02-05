@@ -38,12 +38,15 @@ interface AddSnippetArgs {
 
 const resolvers = {
   Query: {
+    //returns all users
     users: async () => {
       return User.find().populate('snippets');
     },
+    //returns a single user
     user: async (_parent: any, { username }: UserArgs) => {
       return User.findOne({ username }).populate('snippets');
     },
+    //returns all snippets
     snippets: async (_parent: any, { limit, search }: SnippetsArgs) => {
       if (limit && search){
         const regExSearch = new RegExp(search, 'i')
@@ -60,6 +63,7 @@ const resolvers = {
         return await Snippet.find().sort({ createdAt: -1 }).limit(10);
       }
     },
+    //returns a single snippet
     snippet: async (_parent: any, { snippetId }: SnippetArgs) => {
       return await Snippet.findOne({ _id: snippetId });
     },
@@ -75,6 +79,7 @@ const resolvers = {
     },
   },
   Mutation: {
+    // creates a new user
     addUser: async (_parent: any, { input }: AddUserArgs) => {
       try {
         const user = await User.create({ ...input });
@@ -87,6 +92,7 @@ const resolvers = {
       
     },
     
+    // logs a user and returns a JWT
     login: async (_parent: any, { username, password }: LoginUserArgs) => {
       // Find a user with the provided email
       const user = await User.findOne({ username });
@@ -110,6 +116,8 @@ const resolvers = {
       // Return the token and the user
       return { token, user };
     },
+
+    // creates a new snippet
     addSnippet: async (_parent: any, { input }: AddSnippetArgs, context: any) => {
       if (context.user) {
         const openAIResponse = await explainCode(input.text)
@@ -130,6 +138,8 @@ const resolvers = {
       throw AuthenticationError;
       ('You need to be logged in!');
     },
+
+    // deletes a snippet and updates a user
     removeSnippet: async (_parent: any, { snippetId }: SnippetArgs, context: any) => {
       console.log('Remove snippet method:')
       if (context.user) {
