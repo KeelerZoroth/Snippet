@@ -6,15 +6,16 @@ import { ADD_SNIPPET } from "../utils/mutations";
 import { QUERY_SNIPPETS } from "../utils/queries";
 import auth from "../utils/auth";
 
+// ScanSnippet component that handles the code scanning and submission
 const ScanSnippet = () => {
     const [codeTitle, setCodeTitle] = useState("Title");
     const [codeText, setCodeText] = useState("");
     const [codeSummary, setCodeSummary] = useState("Summary");
 
-
+    // GraphQL mutation to add a snippet
     const [addSnippet, { loading }] = useMutation(ADD_SNIPPET, {refetchQueries:[QUERY_SNIPPETS]})
     
-    
+    // Handle form submission
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
     
@@ -24,7 +25,7 @@ const ScanSnippet = () => {
                 return
             }
 
-            const { data } = await addSnippet({
+            const { data } = await addSnippet({ // GraphQL mutation for adding a snippet
                 variables: {
                     input:{
                         text: codeText,
@@ -40,7 +41,7 @@ const ScanSnippet = () => {
         }
     };
 
-
+    // Styles for the component
     const styles: {[key: string]: React.CSSProperties} = {
         mainDiv: { 
             width: "100%",
@@ -83,7 +84,7 @@ const ScanSnippet = () => {
     
     return (
         <>
-            {!auth.loggedIn() ? (
+            {!auth.loggedIn() ? ( // Redirect to login if not logged in
                 <h1>Please Login</h1>
             ) : (
             <div style={styles.mainDiv}>

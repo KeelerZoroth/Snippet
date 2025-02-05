@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { QUERY_SNIPPETS } from "../utils/queries";
 
+// styled components
 const Card = styled.div`
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -72,11 +73,10 @@ const P = styled.p`
 
 const Button = styled.button<{ primary?: boolean }>`
       `
-
+// SnippetPost component that displays a single snippet post
 const SnippetPost = ({ _id, text, title, summary, language, author }: SnippetPostData) => {
 
     const [deleteSnippetPost, { data, loading, error }] = useMutation(REMOVE_SNIPPET, {refetchQueries:[QUERY_SNIPPETS]});
-    console.log(_id)
 
     const deleteSnippet = async () => {
         try {

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+// The following code creates a simple 3D holographic face using Three.js and React.
 const HoloFace = () => {
     const mountRef = useRef<HTMLDivElement | null>(null);
 

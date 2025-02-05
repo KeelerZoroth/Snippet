@@ -24,6 +24,7 @@ const preloadVoices = () => {
   }
 };
 
+// Signup component
 const Signup = () => {
   const [userFormData, setUserFormData] = useState({
     username: "",
@@ -124,23 +125,24 @@ const Signup = () => {
     window.speechSynthesis.speak(utterance);
   };
 
+  // Handle input changes
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
-
+  // Handle form submission
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     speak("Signing you up...");
 
-    if (userFormData.password !== userFormData.confirmPassword) {
+    if (userFormData.password !== userFormData.confirmPassword) { // check if passwords match
       speak("Passwords do not match");
       setErrorMessage("Passwords do not match");
       return;
     }
 
     
-
+    // GraphQL mutation for adding a user
     try {
       const { data } = await addUser({
         variables: {
@@ -153,8 +155,8 @@ const Signup = () => {
 
       if (!data) throw new Error("Something went wrong!");
 
-      const { token } = data.addUser;
-      auth.login(token);
+      const { token } = data.addUser; // Get token from response
+      auth.login(token); // Store token
 
       speak("Signup successful");
       setTimeout(() => navigate("/"), 1000);

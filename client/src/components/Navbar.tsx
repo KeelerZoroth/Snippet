@@ -4,7 +4,7 @@ import auth from '../utils/auth';
 import styled from 'styled-components'
 import TempSnippetLogo from '/TempSnippetLogo.png';
 
-
+// styled components
 const Button = styled.button`
   background: transparent;
   border-radius: 5px;
@@ -69,7 +69,7 @@ const NavLinks = styled.ul`
   }
 `;
 
-
+// Main component for Navbar
 const Navbar = () => {
   const navigate = useNavigate();
 

@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+// GraphQL queries for fetching user and snippet data
 export const QUERY_USER = gql`
     query Query($username: String!) {
         user(username: $username) {

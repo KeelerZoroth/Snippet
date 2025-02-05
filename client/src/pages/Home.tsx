@@ -9,7 +9,7 @@ import { useQuery } from "@apollo/client";
 import { SearchBar } from '../components/SearchBar';
 import { useEffect, useState } from 'react';
 
-
+// styled components
 const Container = styled.div`
   margin-top: 60px;
   width: 80%;
@@ -88,16 +88,18 @@ const MakeSnippet = styled.ul`
   }
 `;
 
-
+// Main component for the Home page
 const Home = () => {
 
     const { loading, data, refetch } = useQuery(QUERY_SNIPPETS);
 
     const [isLoggedIn, setIsLoggedIn] = useState(auth.loggedIn());
 
+    // Check authentication status on component mount
     useEffect(() => {
         const checkAuth = () => setIsLoggedIn(auth.loggedIn());
 
+        // Add event listener for auth changes
         window.addEventListener('authChange', checkAuth);
         refetch()
         return () => window.removeEventListener('authChange', checkAuth);
