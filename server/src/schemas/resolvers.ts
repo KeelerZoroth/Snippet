@@ -139,10 +139,6 @@ const resolvers = {
         });
         console.log('Snippet deleted!')
 
-        // if(!snippet){
-        //   throw AuthenticationError;
-        // }
-
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { snippets: snippet!._id } }
