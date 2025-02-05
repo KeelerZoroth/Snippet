@@ -6,7 +6,6 @@ import SnippetPost from "../components/SnippetPost";
 import { SnippetPostData } from "../interfaces/SnippetPostData";
 import { QUERY_SNIPPETS } from "../utils/queries";
 import { useQuery } from "@apollo/client";
-import { ObjectId } from 'mongoose'
 import { SearchBar } from '../components/SearchBar';
 import { useEffect, useState } from 'react';
 
@@ -61,11 +60,17 @@ const SnippetCard = styled.div`
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
+
+  @media screen and (max-width: 390px){
+        position: relative;
+        left: -10px
+    }
 `;
 
 const MakeSnippet = styled.ul`
   list-style: none;
   display: flex;
+  justify-content: center;
   gap: 1rem;
   margin: 0.5;
   padding: 0.5;
@@ -88,27 +93,28 @@ const Home = () => {
 
     const { loading, data, refetch } = useQuery(QUERY_SNIPPETS);
 
-    const handleSnippetDelete = (deletedSnippetId: ObjectId) => {
-        // If the backend removes the snippet, Apollo Client will update the cache automatically
-        console.log(`Deleted snippet ID: ${deletedSnippetId}`);
-    };
-
     const [isLoggedIn, setIsLoggedIn] = useState(auth.loggedIn());
 
     useEffect(() => {
         const checkAuth = () => setIsLoggedIn(auth.loggedIn());
 
         window.addEventListener('authChange', checkAuth);
+        refetch()
         return () => window.removeEventListener('authChange', checkAuth);
     }, []);
 
     return (
         <Container>
+          {isLoggedIn && (<>
+            <MakeSnippet style={{padding: "0", margin: "5px",}}>
+                <Link to="/scan-snippet">Scan your own code Snippet</Link>
+            </MakeSnippet>
+            <p style={{color: "#333333"}}>- or -</p>
+            </>
+            )}
             <SearchBar {...{refetchQuery: refetch}}/>
             <Header>Check out some snippets below!</Header>
-            {isLoggedIn && (<MakeSnippet>
-                <Link to="/scan-snippet">Add Snippet</Link>
-            </MakeSnippet>)}
+            
             <CardsContainer>
                 { loading ? (
                     <div>
@@ -118,7 +124,7 @@ const Home = () => {
                     <>
                     {data.snippets.map((snippetPost: SnippetPostData, indexKey: number) => (
                         <SnippetCard key={indexKey}>
-                            <SnippetPost {...snippetPost} onDelete={handleSnippetDelete} />
+                            <SnippetPost {...snippetPost} />
                         </SnippetCard>
                     ))}
                 </>)}

@@ -46,13 +46,15 @@ const resolvers = {
     },
     snippets: async (_parent: any, { limit, search }: SnippetsArgs) => {
       if (limit && search){
-        return await Snippet.find().or([{language: search}, {title: search}, {author: search}]).sort({ createdAt: -1 }).limit(limit)
+        const regExSearch = new RegExp(search, 'i')
+        return await Snippet.find().or([{ language: regExSearch }, {title: regExSearch}, {author: regExSearch}]).sort({ createdAt: -1 }).limit(limit)
       }
       else if (limit){
         return await Snippet.find().sort({ createdAt: -1 }).limit(limit)
       }
       else if (search){
-        return await Snippet.find({ language: search }).sort({ createdAt: -1 }).limit(10)
+        const regExSearch = new RegExp(search, 'i')
+        return await Snippet.find().or([{ language: regExSearch }, {title: regExSearch}, {author: regExSearch}]).sort({ createdAt: -1 }).limit(10)
       }
       else {
         return await Snippet.find().sort({ createdAt: -1 }).limit(10);
@@ -129,20 +131,23 @@ const resolvers = {
       ('You need to be logged in!');
     },
     removeSnippet: async (_parent: any, { snippetId }: SnippetArgs, context: any) => {
+      console.log('Remove snippet method:')
       if (context.user) {
+        console.log('User Exists!!')
         const snippet = await Snippet.findOneAndDelete({
           _id: snippetId,
-          snippetAuthor: context.user.username,
         });
+        console.log('Snippet deleted!')
 
-        if(!snippet){
-          throw AuthenticationError;
-        }
+        // if(!snippet){
+        //   throw AuthenticationError;
+        // }
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { snippets: snippet._id } }
+          { $pull: { snippets: snippet!._id } }
         );
+        console.log('User updated!')
 
         return snippet;
       }

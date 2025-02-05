@@ -45,11 +45,9 @@ export const ADD_SNIPPET = gql`
 `;
 
 export const REMOVE_SNIPPET = gql`
-    mutation RemoveSnippet($snippetId: ID) {
+    mutation removeSnippet($snippetId: ID!) {
         removeSnippet(snippetId: $snippetId) {
-            _id
-            author
-            title
+        _id
         }
     }
 `;

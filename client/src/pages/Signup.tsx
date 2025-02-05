@@ -4,6 +4,7 @@ import HoloRedFace from "../components/HoloRedFace";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import { useNavigate } from "react-router-dom";
+import auth from "../utils/auth";
 
 let cachedVoice: SpeechSynthesisVoice | null = null;
 
@@ -26,11 +27,12 @@ const preloadVoices = () => {
 const Signup = () => {
   const [userFormData, setUserFormData] = useState({
     username: "",
-    email: "",
     password: "",
     confirmPassword: "",
   });
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(true); // Control AI voice
+  const [isVoiceEnabled, setIsVoiceEnabled] = useState<boolean>(() => {
+    return localStorage.getItem("voiceEnabled") === "true"; // saves settings for ai voice in local storage
+  }); // Control AI voice
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [addUser] = useMutation(ADD_USER);
   const navigate = useNavigate();
@@ -137,12 +139,13 @@ const Signup = () => {
       return;
     }
 
+    
+
     try {
       const { data } = await addUser({
         variables: {
           input: {
             username: userFormData.username,
-            email: userFormData.email,
             password: userFormData.password,
           },
         },
@@ -151,18 +154,24 @@ const Signup = () => {
       if (!data) throw new Error("Something went wrong!");
 
       const { token } = data.addUser;
-      localStorage.setItem("auth_token", token);
+      auth.login(token);
 
       speak("Signup successful");
       setTimeout(() => navigate("/"), 1000);
 
-      setUserFormData({ username: "", email: "", password: "", confirmPassword: "" });
+      setUserFormData({ username: "", password: "", confirmPassword: "" });
       setErrorMessage(null);
     } catch (err) {
       console.error(err);
       speak("Signup failed");
       setErrorMessage("Signup failed. Please try again.");
     }
+  };
+
+  const toggleVoice = () => {
+    const newVoiceState = !isVoiceEnabled;
+    setIsVoiceEnabled(newVoiceState);
+    localStorage.setItem("voiceEnabled", JSON.stringify(newVoiceState)); // Save setting
   };
 
   return (
@@ -175,7 +184,7 @@ const Signup = () => {
           <input
             type="checkbox"
             checked={isVoiceEnabled}
-            onChange={() => setIsVoiceEnabled((prev) => !prev)}
+            onChange={toggleVoice}
           />
           {isVoiceEnabled ? "Disable AI Voice" : "Enable AI Voice"}
         </label>
@@ -193,15 +202,6 @@ const Signup = () => {
             onChange={handleInputChange}
             required
             onFocus={() => speak("Enter your username")}
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={userFormData.email}
-            onChange={handleInputChange}
-            required
-            onFocus={() => speak("Enter your email")}
           />
           <input
             type="password"
@@ -229,7 +229,6 @@ const Signup = () => {
             disabled={
               !(
                 userFormData.username &&
-                userFormData.email &&
                 userFormData.password &&
                 userFormData.confirmPassword
               )

@@ -8,8 +8,6 @@ on:
 jobs:
   enforce-branch-policy:
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write  # Allows closing PRs with GitHub CLI
 
     steps:
       - name: Check Source Branch
