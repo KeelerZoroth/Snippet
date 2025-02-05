@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 
 import styled from "styled-components";
 
-
+// styled components
 const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -59,7 +59,7 @@ export const SearchBar = ({refetchQuery}: {refetchQuery: any}) => {
             console.error(err)
         }
     }
-
+    // callback function to handle input change for search
     const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setSearch(event.target.value);
     }, [])
