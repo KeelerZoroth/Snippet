@@ -95,6 +95,12 @@
     animation: rgb-hover 2s infinite alternate;
 }
 
+
+.error-message {
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
 @keyframes rgb-hover {
     0% { background: rgb(255, 0, 0); }
     25% { background: rgb(0, 255, 0); }

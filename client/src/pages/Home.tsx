@@ -15,8 +15,8 @@ const Home = () => {
   const starsRef = useRef<HTMLCanvasElement | null>(null);
   const navigate = useNavigate(); // Initialize navigation
 
-  const { loading, data } = useQuery(QUERY_SNIPPETS);
-
+  const { loading, data, refetch } = useQuery(QUERY_SNIPPETS);
+  
   useEffect(() => {
     const canvas = starsRef.current;
     if (!canvas) return;
@@ -105,7 +105,7 @@ const Home = () => {
         <h1 className="snippet-header">Check out some snippets below!</h1>
 
         <div className="search-bar-container">
-          <SearchBar refetchQuery={() => { }} />
+          <SearchBar refetchQuery={refetch} />
         </div>
 
         {/* Conditionally render the button if the user is logged in */}

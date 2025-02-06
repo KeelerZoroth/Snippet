@@ -1,16 +1,16 @@
 .cards-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-    max-height: 400px;
-    /* Limit the container height */
-    overflow-y: auto;
-    /* Enable scrolling */
+    flex-direction: column;
     justify-content: center;
-    scrollbar-width: thin;
-    /* Style the scrollbar */
+    gap: 20px;
+    align-items: center;
+    
+    padding: 20px;
+    width: 90%;
 }
+
+
 
 .cards-container::-webkit-scrollbar {
     width: 8px;
@@ -22,14 +22,18 @@
 }
 
 .card {
+    position: relative;
+    top: 0;
     background: rgba(30, 30, 30, 0.9);
     border-radius: 12px;
     padding: 20px;
-    max-width: 350px;
+    width: 90%;
+    display: inline;
     color: white;
     text-align: center;
     transition: transform 0.3s ease-in-out;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    flex-shrink: 1;
 }
 
 .card:hover {
@@ -42,6 +46,7 @@
 }
 
 .code-block {
+    text-align: left;
     background: #222;
     padding: 10px;
     border-radius: 8px;
@@ -54,9 +59,15 @@
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    padding: 10px;
     font-size: 0.9rem;
     color: #aaa;
+}
+
+.meta-info > p {
+    width: 40%;
     word-wrap: break-word;
+    margin-bottom: 0;
 }
 
 .delete-button {
@@ -73,4 +84,10 @@
 
 .delete-button:hover {
     background: #ff1c40;
+}
+
+@media (max-width: 450px) {
+    .card {
+        width: 80%;
+    }
 }

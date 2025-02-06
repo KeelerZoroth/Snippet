@@ -33,6 +33,10 @@ body {
     }
 }
 
+.background-container {
+    width: 100%;
+}
+
 .home-container {
     position: relative;
     z-index: 1;
@@ -50,20 +54,6 @@ body {
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: (10px);
     /* Softens the background */
-}
-
-.cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    max-width: 80%;
-    overflow-y: auto;
-    max-height: 500px;
-    /* Added centering and alignment fixes */
-    align-items: flex-start;
-    align-content: flex-start;
 }
 
 .snippet-card {
@@ -114,12 +104,34 @@ body {
     }
 }
 
+
+.spheres-container {
+    top: 0;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: -1;
+}
+
+.spheres-container > *:nth-child(1) {
+    top: -40px;
+    left: -40px;
+    position: absolute;
+}
+
+.spheres-container > *:nth-child(2) {
+    top: -40px;
+    right: -40px;
+    position: absolute;
+}
+
 .search-bar-container {
     width: 100%;
-    max-width: 600px;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
     text-align: center;
-    margin: 0 auto;
 }
 
 .scan-snippet-button {
