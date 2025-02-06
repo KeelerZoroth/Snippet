@@ -67,6 +67,7 @@
 .meta-info > p {
     width: 40%;
     word-wrap: break-word;
+    margin-bottom: 0;
 }
 
 .delete-button {
@@ -86,9 +87,6 @@
 }
 
 @media (max-width: 450px) {
-    /* .cards-container {
-        width: 100%;
-    } */
     .card {
         width: 80%;
     }
