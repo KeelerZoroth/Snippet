@@ -7,17 +7,18 @@ interface ExtendedJwt extends JwtPayload {
   }
 };
 
+// AuthService class to handle authentication
 class AuthService {
   getProfile() {
-    return jwtDecode<ExtendedJwt>(this.getToken());
+    return jwtDecode<ExtendedJwt>(this.getToken()); // Decode the token
   }
 
   loggedIn() {
     const token = this.getToken();
-    return !!token && !this.isTokenExpired(token);
+    return !!token && !this.isTokenExpired(token); // Check if the token is valid
   }
 
-  isTokenExpired(token: string) {
+  isTokenExpired(token: string) { // Check if the token is expired
     try {
       const decoded = jwtDecode<JwtPayload>(token);
 
@@ -31,7 +32,7 @@ class AuthService {
   }
 
   getToken(): string {
-    const loggedUser = localStorage.getItem('id_token') || '';
+    const loggedUser = localStorage.getItem('id_token') || ''; // Get the token from local storage
     return loggedUser;
   }
 

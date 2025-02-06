@@ -11,6 +11,7 @@ import ScanSnippet from './pages/ScanSnippet.tsx';
 import ErrorPage from './pages/ErrorPage.tsx';
 import SignUp from './pages/Signup.tsx';
 
+// main entry point for the React application
 const router = createBrowserRouter([
   {
     path: '/',
